@@ -439,10 +439,54 @@ function generateList(){
   setTimeout(() => {
     if (loading) loading.classList.remove('active');
     document.getElementById('resultsScreen').classList.add('active');
-    showResults(); // no args
+    showResultsSafe(); // call the safe wrapper
   }, 900);
 }
     
+  function showResultsSafe(){
+  try {
+    // Your existing renderer
+    showResults();
+  } catch (e) {
+    console.error(e);
+    // Minimal fallback render so the page still works
+    const listEl = document.getElementById('shoppingList');
+    const sumEl  = document.getElementById('summary');
+
+    if (listEl) {
+      listEl.innerHTML = `
+        <div class="list-item">
+          <div class="item-header">
+            <span class="item-title">Quick List (Fallback)</span>
+            <span class="quantity-badge">Items: 3</span>
+          </div>
+          <div class="product-block">
+            <div class="product-name">Apples</div>
+            <div class="product-details"><div>4</div><div class="price">$3.00</div></div>
+          </div>
+          <div class="product-block">
+            <div class="product-name">Rice</div>
+            <div class="product-details"><div>2 lb</div><div class="price">$5.00</div></div>
+          </div>
+          <div class="product-block">
+            <div class="product-name">Beans</div>
+            <div class="product-details"><div>2 cans</div><div class="price">$4.00</div></div>
+          </div>
+        </div>`;
+    }
+
+    if (sumEl) {
+      sumEl.innerHTML = `
+        <h3 style="margin-bottom:20px;text-align:center;">Shopping Summary</h3>
+        <div class="summary-row"><span>Diet Plan:</span><span>Your Plan</span></div>
+        <div class="summary-row"><span>Total Items:</span><span>3</span></div>
+        <div class="summary-row"><span>Estimated Total:</span><span>$12.00</span></div>`;
+    }
+
+    alert('Something inside showResults() crashed: ' + e.message);
+  }
+}
+  
     function showResults(){
       document.getElementById('loadingScreen').classList.remove('active');
       document.getElementById('resultsScreen').classList.add('active');
@@ -585,6 +629,7 @@ function generateList(){
   </script>
 </body>
 </html>
+
 
 
 
