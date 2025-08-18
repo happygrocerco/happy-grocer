@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Grocer - Smart Shopping Made Easy</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            color: white;
+        }
+
+        .logo {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        .app-title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        .step-indicator {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 25px;
+            gap: 10px;
+        }
+
+        .step {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #e0e0e0;
+            transition: all 0.3s ease;
+        }
+
+        .step.active {
+            background: #667eea;
+            transform: scale(1.3);
+        }
+
+        .step.completed {
+            background: #4CAF50;
+        }
+
+        .screen {
+            display: none;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            text-align: center;
+        }
+
+        .emoji-header {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .option-group {
+            margin-bottom: 25px;
+        }
+
+        .option-group label {
+            font-weight: 600;
+            color: #555;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .checkbox-group, .radio-group {
+            display: grid;
+            gap: 12px;
+        }
+
+        .checkbox-item, .radio-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #f9f9f9;
+        }
+
+        .checkbox-item:hover, .radio-item:hover {
+            border-color: #667eea;
+            background: #f0f4ff;
+        }
+
+        .checkbox-item.selected, .radio-item.selected {
+            border-color: #667eea;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .checkbox-item input, .radio-item input {
+            margin-right: 12px;
+            transform: scale(1.2);
+        }
+
+        .option-emoji {
+            font-size: 1.5rem;
+            margin-right: 10px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+        }
+
+        input[type="text"], input[type="number"], select {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+            background: #f9f9f9;
+        }
+
+        input[type="text"]:focus, input[type="number"]:focus, select:focus {
+            outline: none;
+            border-color: #667eea;
+            background: white;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 18px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: #f0f0f0;
+            color: #666;
+        }
+
+        .btn-secondary:hover {
+            background: #e0e0e0;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .shopping-list {
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+
+        .list-item {
+            background: #f8f9ff;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-left: 4px solid #667eea;
+        }
+
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .item-title {
+            font-weight: bold;
+            color: #333;
+            font-size: 1.1rem;
+        }
+
+        .quantity-badge {
+            background: #667eea;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        .product-info {
+            margin-bottom: 10px;
+        }
+
+        .product-name {
+            font-weight: 600;
+            color: #444;
+            margin-bottom: 5px;
+        }
+
+        .product-details {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .sale-badge {
+            background: #ff4757;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            margin-left: 8px;
+        }
+
+        .alternatives {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .alternatives-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .alternative-item {
+            background: white;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .summary-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 20px;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .summary-row:last-child {
+            margin-bottom: 0;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255,255,255,0.3);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        @media (min-width: 768px) {
+            .container {
+                max-width: 600px;
+                padding: 40px;
+            }
+            
+            .checkbox-group, .radio-group {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+        }
+
+        .back-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .progress-text {
+            text-align: center;
+            color: white;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <button class="back-btn" onclick="goBack()" id="backBtn" style="display: none;">←</button>
+        
+        <div class="header">
+            <div class="logo">🛒</div>
+            <h1 class="app-title">Happy Grocer</h1>
+            <p class="subtitle">Smart Shopping Made Easy</p>
+        </div>
+
+        <div class="step-indicator">
+            <div class="step active" id="step1"></div>
+            <div class="step" id="step2"></div>
+            <div class="step" id="step3"></div>
+            <div class="step" id="step4"></div>
+            <div class="step" id="step5"></div>
+        </div>
+
+        <div class="progress-text" id="progressText">Step 1 of 5</div>
+
+        <!-- Screen 1: Priorities -->
+        <div class="screen active" id="screen1">
+            <div class="card">
+                <div class="emoji-header">🎯</div>
+                <h2>What's Your Shopping Goal?</h2>
+                <p style="text-align: center; margin-bottom: 25px; color: #666;">Choose your priorities (you can select multiple)</p>
+                
+                <div class="option-group">
+                    <div class="checkbox-group">
+                        <div class="checkbox-item" onclick="toggleCheckbox('budget', this)">
+                            <input type="checkbox" id="budget" value="budget">
+                            <span class="option-emoji">💰</span>
+                            <span>Budget-friendly (cheapest options)</span>
+                        </div>
+                        <div class="checkbox-item" onclick="toggleCheckbox('health', this)">
+                            <input type="checkbox" id="health" value="health">
+                            <span class="option-emoji">🥗</span>
+                            <span>Health-focused (nutritious options)</span>
+                        </div>
+                        <div class="checkbox-item" onclick="toggleCheckbox('calories', this)">
+                            <input type="checkbox" id="calories" value="calories">
+                            <span class="option-emoji">🔥</span>
+                            <span>Low-calorie (fewest calories)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn btn-primary" onclick="nextScreen(1)">Continue</button>
+            </div>
+        </div>
+
+        <!-- Screen 2: Dietary Restrictions -->
+        <div class="screen" id="screen2">
+            <div class="card">
+                <div class="emoji-header">🥗</div>
+                <h2>Dietary Preferences</h2>
+                <p style="text-align: center; margin-bottom: 25px; color: #666;">Select any dietary restrictions or preferences</p>
+                
+                <div class="option-group">
+                    <div class="checkbox-group">
+                        <div class="checkbox-item" onclick="toggleCheckbox('vegetarian', this)">
+                            <input type="checkbox" id="vegetarian" value="vegetarian">
+                            <span class="option-emoji">🌱</span>
+                            <span>Vegetarian</span>
+                        </div>
+                        <div class="checkbox-item" onclick="toggleCheckbox('vegan', this)">
+                            <input type="checkbox" id="vegan" value="vegan">
+                            <span class="option-emoji">🌿</span>
+                            <span>Vegan</span>
+                        </div>
+                        <div class="checkbox-item" onclick="toggleCheckbox('keto', this)">
+                            <input type="checkbox" id="keto" value="keto">
+                            <span class="option-emoji">🥓</span>
+                            <span>Keto</span>
+                        </div>
+                        <div class="checkbox-item" onclick="toggleCheckbox('gluten_free', this)">
+                            <input type="checkbox" id="gluten_free" value="gluten_free">
+                            <span class="option-emoji">🌾</span>
+                            <span>Gluten-Free</span>
+                        </div>
+                        <div class="checkbox-item" onclick="toggleCheckbox('high_protein', this)">
+                            <input type="checkbox" id="high_protein" value="high_protein">
+                            <span class="option-emoji">💪</span>
+                            <span>High Protein</span>
+                        </div>
+                        <div class="checkbox-item" onclick="toggleCheckbox('low_sodium', this)">
+                            <input type="checkbox" id="low_sodium" value="low_sodium">
+                            <span class="option-emoji">🧂</span>
+                            <span>Low Sodium</span>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn btn-primary" onclick="nextScreen(2)">Continue</button>
+            </div>
+        </div>
+
+        <!-- Screen 3: Food Categories -->
+        <div class="screen" id="screen3">
+            <div class="card">
+                <div class="emoji-header">🍽️</div>
+                <h2>What Do You Need?</h2>
+                <p style="text-align: center; margin-bottom: 25px; color: #666;">Select the food categories you want to shop for</p>
+                
+                <div class="option-group">
+                    <div class="checkbox-group">
+                        <div class="checkbox-item" onclick="toggleCheckbox('proteins', this)">
+                            <input type="checkbox" id="proteins" value="proteins">
+                            <span class="option-emoji">🍗</span>
+                            <span>Proteins</span>
+                        </div>
+                        <div class="checkbox-item" onclick="toggleCheckbox('dairy', this)">
+                            <input type="checkbox" id="dairy" value="dairy">
+                            <span class="option-emoji">🥛</span>
+                            <span>Dairy</span>
+                        </div>
+                        <div class="checkbox-item" onclick="toggleCheckbox('grains', this)">
+                            <input type="checkbox" id="grains" value="grains">
+                            <span class="option-emoji">🍞</span>
+                            <span>Grains</span>
+                        </div>
+                        <div class="checkbox-item" onclick="toggleCheckbox('fruits', this)">
+                            <input type="checkbox" id="fruits" value="fruits">
+                            <span class="option-emoji">🍎</span>
+                            <span>Fruits</span>
+                        </div>
+                        <div class="checkbox-item" onclick="toggleCheckbox('vegetables', this)">
+                            <input type="checkbox" id="vegetables" value="vegetables">
+                            <span class="option-emoji">🥬</span>
+                            <span>Vegetables</span>
+                        </div>
+                        <div class="checkbox-item" onclick="toggleCheckbox('snacks', this)">
+                            <input type="checkbox" id="snacks" value="snacks">
+                            <span class="option-emoji">🥜</span>
+                            <span>Snacks</span>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn btn-primary" onclick="nextScreen(3)">Continue</button>
+            </div>
+        </div>
+
+        <!-- Screen 4: Household Info -->
+        <div class="screen" id="screen4">
+            <div class="card">
+                <div class="emoji-header">👨‍👩‍👧‍👦</div>
+                <h2>Household Details</h2>
+                <p style="text-align: center; margin-bottom: 25px; color: #666;">Help us calculate the right quantities</p>
+                
+                <div class="input-group">
+                    <label for="householdSize">👥 How many people are you shopping for?</label>
+                    <input type="number" id="householdSize" min="1" max="20" value="2" placeholder="2">
+                </div>
+
+                <div class="input-group">
+                    <label for="duration">📅 How many weeks should groceries last?</label>
+                    <select id="duration">
+                        <option value="1">1 week</option>
+                        <option value="2">2 weeks</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="budget">💰 Budget limit (optional)</label>
+                    <input type="number" id="budget" step="0.01" placeholder="Enter your budget limit">
+                </div>
+
+                <div class="input-group">
+                    <label for="zipcode">📍 Your zip code</label>
+                    <input type="text" id="zipcode" placeholder="Enter your zip code">
+                </div>
+
+                <button class="btn btn-primary" onclick="nextScreen(4)">Find Stores</button>
+            </div>
+        </div>
+
+        <!-- Screen 5: Store Selection -->
+        <div class="screen" id="screen5">
+            <div class="card">
+                <div class="emoji-header">🏪</div>
+                <h2>Choose Your Store</h2>
+                <p style="text-align: center; margin-bottom: 25px; color: #666;">Select a Kroger store near you</p>
+                
+                <div id="storesList">
+                    <!-- Stores will be populated here -->
+                </div>
+
+                <button class="btn btn-primary" onclick="generateList()" id="generateBtn" style="display: none;">Generate My Shopping List</button>
+            </div>
+        </div>
+
+        <!-- Loading Screen -->
+        <div class="screen" id="loadingScreen">
+            <div class="card">
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <h2>Creating Your Smart Shopping List</h2>
+                    <p>🔍 Finding the best products for you...</p>
+                    <p>💰 Optimizing for your priorities...</p>
+                    <p>🥗 Checking dietary preferences...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Screen -->
+        <div class="screen" id="resultsScreen">
+            <div class="card">
+                <div class="emoji-header">✨</div>
+                <h2>Your Smart Shopping List</h2>
+                
+                <div id="shoppingList" class="shopping-list">
+                    <!-- Shopping list will be populated here -->
+                </div>
+
+                <div class="summary-card" id="summary">
+                    <!-- Summary will be populated here -->
+                </div>
+
+                <button class="btn btn-primary" onclick="startOver()">Create Another List</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentScreen = 1;
+        let selectedData = {
+            priorities: [],
+            dietary: [],
+            categories: [],
+            household: {},
+            store: null
+        };
+
+        // Mock data for demonstration
+        const mockStores = [
+            { id: '1', name: 'Kroger - Main Street', address: '123 Main St, Anytown, ST 12345', phone: '(555) 123-4567' },
+            { id: '2', name: 'Kroger - Downtown', address: '456 Oak Ave, Anytown, ST 12345', phone: '(555) 234-5678' },
+            { id: '3', name: 'Kroger - Eastside', address: '789 Pine Rd, Anytown, ST 12345', phone: '(555) 345-6789' }
+        ];
+
+        const mockShoppingList = [
+            {
+                category: 'Proteins',
+                quantity: 3,
+                recommended: {
+                    name: 'Simple Truth Organic Chicken Breast',
+                    price: 6.99,
+                    originalPrice: 8.99,
+                    onSale: true,
+                    size: '1 lb',
+                    aisle: 'Meat - Aisle 8',
+                    calories: 165,
+                    protein: 31
+                },
+                alternatives: [
+                    { name: 'Kroger Brand Ground Turkey', price: 4.99, size: '1 lb', calories: 150, protein: 22 },
+                    { name: 'Wild Caught Salmon', price: 12.99, size: '8 oz', calories: 206, protein: 22 }
+                ]
+            },
+            {
+                category: 'Dairy',
+                quantity: 2,
+                recommended: {
+                    name: 'Simple Truth Organic Whole Milk',
+                    price: 3.49,
+                    size: '64 fl oz',
+                    aisle: 'Dairy - Aisle 12',
+                    calories: 150,
+                    protein: 8
+                },
+                alternatives: [
+                    { name: 'Kroger Almond Milk', price: 2.99, size: '64 fl oz', calories: 60, protein: 1 },
+                    { name: 'Oat Dream Oat Milk', price: 4.49, size: '64 fl oz', calories: 80, protein: 3 }
+                ]
+            }
+        ];
+
+        function toggleCheckbox(id, element) {
+            const checkbox = document.getElementById(id);
+            
+            checkbox.checked = !checkbox.checked;
+            
+            if (checkbox.checked) {
+                element.classList.add('selected');
+            } else {
+                element.classList.remove('selected');
+            }
+        }
+
+        function updateStepIndicator(step) {
+            for (let i = 1; i <= 5; i++) {
+                const stepEl = document.getElementById(`step${i}`);
+                if (i < step) {
+                    stepEl.className = 'step completed';
+                } else if (i === step) {
+                    stepEl.className = 'step active';
+                } else {
+                    stepEl.className = 'step';
+                }
+            }
+            
+            document.getElementById('progressText').textContent = `Step ${step} of 5`;
+            
+            if (step > 1) {
+                document.getElementById('backBtn').style.display = 'block';
+            } else {
+                document.getElementById('backBtn').style.display = 'none';
+            }
+        }
+
+        function nextScreen(fromScreen) {
+            // Validate and collect data
+            if (fromScreen === 1) {
+                const priorities = [];
+                ['budget', 'health', 'calories'].forEach(id => {
+                    if (document.getElementById(id).checked) {
+                        priorities.push(id);
+                    }
+                });
+                
+                if (priorities.length === 0) {
+                    alert('Please select at least one priority!');
+                    return;
+                }
+                
+                selectedData.priorities = priorities;
+            } else if (fromScreen === 2) {
+                const dietary = [];
+                ['vegetarian', 'vegan', 'keto', 'gluten_free', 'high_protein', 'low_sodium'].forEach(id => {
+                    if (document.getElementById(id).checked) {
+                        dietary.push(id);
+                    }
+                });
+                selectedData.dietary = dietary;
+            } else if (fromScreen === 3) {
+                const categories = [];
+                ['proteins', 'dairy', 'grains', 'fruits', 'vegetables', 'snacks'].forEach(id => {
+                    if (document.getElementById(id).checked) {
+                        categories.push(id);
+                    }
+                });
+                
+                if (categories.length === 0) {
+                    alert('Please select at least one food category!');
+                    return;
+                }
+                
+                selectedData.categories = categories;
+            } else if (fromScreen === 4) {
+                const householdSize = parseInt(document.getElementById('householdSize').value);
+                const duration = parseInt(document.getElementById('duration').value);
+                const budget = parseFloat(document.getElementById('budget').value) || null;
+                const zipcode = document.getElementById('zipcode').value.trim();
+                
+                if (!householdSize || householdSize < 1) {
+                    alert('Please enter a valid household size!');
+                    return;
+                }
+                
+                if (!zipcode) {
+                    alert('Please enter your zip code!');
+                    return;
+                }
+                
+                selectedData.household = { householdSize, duration, budget, zipcode };
+                
+                // Populate stores
+                populateStores();
+            }
+            
+            // Move to next screen
+            document.getElementById(`screen${fromScreen}`).classList.remove('active');
+            currentScreen = fromScreen + 1;
+            document.getElementById(`screen${currentScreen}`).classList.add('active');
+            updateStepIndicator(currentScreen);
+        }
+
+        function goBack() {
+            if (currentScreen > 1) {
+                document.getElementById(`screen${currentScreen}`).classList.remove('active');
+                currentScreen--;
+                document.getElementById(`screen${currentScreen}`).classList.add('active');
+                updateStepIndicator(currentScreen);
+            }
+        }
+
+        function populateStores() {
+            const storesList = document.getElementById('storesList');
+            storesList.innerHTML = '';
+            
+            mockStores.forEach((store, index) => {
+                const storeDiv = document.createElement('div');
+                storeDiv.className = 'radio-item';
+                storeDiv.onclick = () => selectStore(store.id, storeDiv);
+                
+                storeDiv.innerHTML = `
+                    <input type="radio" name="store" value="${store.id}">
+                    <div>
+                        <div style="font-weight: bold; margin-bottom: 5px;">${store.name}</div>
+                        <div style="font-size: 0.9rem; color: #666;">${store.address}</div>
+                        <div style="font-size: 0.9rem; color: #666;">${store.phone}</div>
+                    </div>
+                `;
+                
+                storesList.appendChild(storeDiv);
+            });
+        }
+
+        function selectStore(storeId, element) {
+            // Remove selection from all stores
+            document.querySelectorAll('.radio-item').forEach(item => {
+                item.classList.remove('selected');
+                item.querySelector('input').checked = false;
+            });
+            
+            // Select this store
+            element.classList.add('selected');
+            element.querySelector('input').checked = true;
+            selectedData.store = storeId;
+            
+            // Show generate button
+            document.getElementById('generateBtn').style.display = 'block';
+        }
+
+        function generateList() {
+            if (!selectedData.store) {
+                alert('Please select a store!');
+                return;
+            }
+            
+            // Show loading screen
+            document.getElementById('screen5').classList.remove('active');
+            document.getElementById('loadingScreen').classList.add('active');
+            
+            // Simulate API call
+            setTimeout(() => {
+                showResults();
+            }, 3000);
+        }
+
+        function showResults() {
+            document.getElementById('loadingScreen').classList.remove('active');
+            document.getElementById('resultsScreen').classList.add('active');
+            
+            populateShoppingList();
+            populateSummary();
+        }
+
+        function populateShoppingList() {
+            const listContainer = document.getElementById('shoppingList');
+            listContainer.innerHTML = '';
+            
+            mockShoppingList.forEach(item => {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'list-item';
+                
+                itemDiv.innerHTML = `
+                    <div class="item-header">
+                        <span class="item-title">${item.category}</span>
+                        <span class="quantity-badge">Qty: ${item.quantity}</span>
+                    </div>
+                    
+                    <div class="product-info">
+                        <div class="product-name">
+                            🥇 ${item.recommended.name}
+                            ${item.recommended.onSale ? '<span class="sale-badge">ON SALE!</span>' : ''}
+                        </div>
+                        <div class="product-details">
+                            $${item.recommended.price.toFixed(2)} ${item.recommended.originalPrice ? `(was $${item.recommended.originalPrice.toFixed(2)})` : ''} - ${item.recommended.size}
+                            <br>📍 ${item.recommended.aisle}
+                            <br>🔥 ${item.recommended.calories} cal, 💪 ${item.recommended.protein}g protein
+                        </div>
+                    </div>
+                    
+                    <div class="alternatives">
+                        <div class="alternatives-title">📋 Alternatives:</div>
+                        ${item.alternatives.map((alt, index) => `
+                            <div class="alternative-item">
+                                ${index + 1}. ${alt.name} - ${alt.price.toFixed(2)} (${alt.size})
+                                <br>🔥 ${alt.calories} cal, 💪 ${alt.protein}g protein
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+                
+                listContainer.appendChild(itemDiv);
+            });
+        }
+
+        function populateSummary() {
+            const summaryContainer = document.getElementById('summary');
+            
+            // Calculate totals
+            let totalCost = 0;
+            let totalItems = 0;
+            let totalSavings = 0;
+            
+            mockShoppingList.forEach(item => {
+                totalCost += item.recommended.price * item.quantity;
+                totalItems += item.quantity;
+                if (item.recommended.onSale && item.recommended.originalPrice) {
+                    totalSavings += (item.recommended.originalPrice - item.recommended.price) * item.quantity;
+                }
+            });
+            
+            const budget = selectedData.household.budget;
+            const priorities = selectedData.priorities.map(p => {
+                const icons = { budget: '💰', health: '🥗', calories: '🔥' };
+                return `${icons[p]} ${p.charAt(0).toUpperCase() + p.slice(1)}`;
+            }).join(' + ');
+            
+            summaryContainer.innerHTML = `
+                <h3 style="margin-bottom: 20px; text-align: center;">📊 Shopping Summary</h3>
+                <div class="summary-row">
+                    <span>🎯 Priorities:</span>
+                    <span>${priorities}</span>
+                </div>
+                <div class="summary-row">
+                    <span>🛒 Total Items:</span>
+                    <span>${totalItems}</span>
+                </div>
+                <div class="summary-row">
+                    <span>👨‍👩‍👧‍👦 Household Size:</span>
+                    <span>${selectedData.household.householdSize} people</span>
+                </div>
+                <div class="summary-row">
+                    <span>📅 Duration:</span>
+                    <span>${selectedData.household.duration} week(s)</span>
+                </div>
+                ${totalSavings > 0 ? `
+                <div class="summary-row">
+                    <span>💰 Sale Savings:</span>
+                    <span>${totalSavings.toFixed(2)}</span>
+                </div>
+                ` : ''}
+                ${budget ? `
+                <div class="summary-row">
+                    <span>${totalCost <= budget ? '💚' : '⚠️'} Budget Status:</span>
+                    <span>${totalCost <= budget ? `${(budget - totalCost).toFixed(2)} under` : `${(totalCost - budget).toFixed(2)} over`}</span>
+                </div>
+                ` : ''}
+                <div class="summary-row">
+                    <span>💳 Total Cost:</span>
+                    <span>${totalCost.toFixed(2)}</span>
+                </div>
+            `;
+        }
+
+        function startOver() {
+            currentScreen = 1;
+            selectedData = {
+                priorities: [],
+                dietary: [],
+                categories: [],
+                household: {},
+                store: null
+            };
+            
+            // Reset all checkboxes and inputs
+            document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+                cb.checked = false;
+                cb.closest('.checkbox-item').classList.remove('selected');
+            });
+            
+            document.querySelectorAll('input[type="radio"]').forEach(rb => {
+                rb.checked = false;
+                rb.closest('.radio-item').classList.remove('selected');
+            });
+            
+            document.getElementById('householdSize').value = '2';
+            document.getElementById('duration').value = '1';
+            document.getElementById('budget').value = '';
+            document.getElementById('zipcode').value = '';
+            
+            // Show first screen
+            document.querySelectorAll('.screen').forEach(screen => {
+                screen.classList.remove('active');
+            });
+            document.getElementById('screen1').classList.add('active');
+            
+            updateStepIndicator(1);
+        }
+
+        // Initialize
+        updateStepIndicator(1);
