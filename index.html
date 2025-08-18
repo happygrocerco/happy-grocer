@@ -1,672 +1,626 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Grocer - Smart Shopping Made Easy</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Happy Grocer - Smart Shopping Made Easy</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{
+      font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+      background:#f7f3a9;min-height:100vh;color:#6b46c1
+    }
+    .container{max-width:400px;margin:0 auto;padding:20px;min-height:100vh}
+    .header{text-align:center;margin-bottom:30px;color:#6b46c1}
+    .logo{
+      font-size:4rem;margin-bottom:15px;background:#7c3aed;border-radius:20px;width:120px;height:120px;margin:0 auto 20px;
+      display:flex;align-items:center;justify-content:center;position:relative;box-shadow:0 10px 30px rgba(0,0,0,.2)
+    }
+    .cart-logo{width:80px;height:80px;position:relative}
+    .cart-body{width:50px;height:35px;background:#fbbf24;border:4px solid #4c1d95;border-radius:8px;position:absolute;top:25px;left:20px}
+    .cart-handle{width:20px;height:25px;border:4px solid #fbbf24;border-right:none;border-radius:8px 0 0 8px;position:absolute;top:25px;left:0}
+    .cart-wheel1,.cart-wheel2{width:8px;height:8px;background:#fbbf24;border:2px solid #4c1d95;border-radius:50%;position:absolute;bottom:8px}
+    .cart-wheel1{left:25px}.cart-wheel2{right:25px}
+    .smiley-face{position:absolute;top:5px;left:25px;width:30px;height:30px;background:#fbbf24;border:3px solid #4c1d95;border-radius:50%}
+    .smiley-eyes{position:absolute;top:8px;left:8px}
+    .smiley-eyes::before,.smiley-eyes::after{content:'';width:4px;height:6px;background:#4c1d95;border-radius:50%;position:absolute}
+    .smiley-eyes::before{left:0}.smiley-eyes::after{right:0;left:10px}
+    .smiley-mouth{position:absolute;bottom:6px;left:6px;width:16px;height:8px;border:2px solid #4c1d95;border-top:none;border-radius:0 0 16px 16px}
+    .app-title{font-size:2.8rem;font-weight:800;margin-bottom:5px;letter-spacing:1px;color:#6b46c1;text-shadow:2px 2px 4px rgba(0,0,0,.3)}
+    .subtitle{font-size:1.1rem;opacity:.9;font-weight:500;color:#7c3aed}
 
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #f7f3a9;
-            min-height: 100vh;
-            color: #6b46c1;
-        }
+    .card{
+      background:rgba(255,255,255,.95);backdrop-filter:blur(20px);border-radius:25px;padding:30px;margin-bottom:25px;
+      box-shadow:0 20px 40px rgba(139,92,246,.3),0 10px 20px rgba(251,191,36,.2),inset 0 1px 0 rgba(255,255,255,.6);
+      border:1px solid rgba(255,255,255,.3);transition:all .4s cubic-bezier(.4,0,.2,1)
+    }
+    .card:hover{transform:translateY(-8px) scale(1.02);box-shadow:0 30px 60px rgba(139,92,246,.4),0 15px 30px rgba(251,191,36,.3),inset 0 1px 0 rgba(255,255,255,.8)}
 
-        .container { max-width: 400px; margin: 0 auto; padding: 20px; min-height: 100vh; }
+    .step-indicator{display:flex;justify-content:center;margin-bottom:25px;gap:10px}
+    .step{width:12px;height:12px;border-radius:50%;background:#e0e0e0;transition:all .3s ease}
+    .step.active{background:linear-gradient(135deg,#8b5cf6,#fde047);transform:scale(1.4);box-shadow:0 4px 15px rgba(139,92,246,.6)}
+    .step.completed{background:linear-gradient(135deg,#10b981,#fbbf24);transform:scale(1.2)}
+    .screen{display:none}.screen.active{display:block}
+    h2{color:#6b46c1;margin-bottom:25px;font-size:2rem;text-align:center;font-weight:700}
 
-        .header { text-align: center; margin-bottom: 30px; color: #6b46c1; }
+    .emoji-header{font-size:4rem;text-align:center;margin-bottom:20px;filter:drop-shadow(3px 3px 6px rgba(0,0,0,.3));animation:bounce 2s ease-in-out infinite}
+    @keyframes bounce{0%,20%,50%,80%,100%{transform:translateY(0)}40%{transform:translateY(-10px)}60%{transform:translateY(-5px)}}
 
-        .logo {
-            font-size: 4rem; margin-bottom: 15px; background: #7c3aed; border-radius: 20px;
-            width: 120px; height: 120px; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center;
-            position: relative; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
+    .option-group{margin-bottom:25px}
+    .checkbox-group{display:grid;gap:12px}
+    .checkbox-item{
+      display:flex;align-items:center;padding:20px;border:2px solid #6b46c1;border-radius:18px;cursor:pointer;transition:all .3s ease;
+      background:rgba(255,255,255,.95);position:relative;overflow:hidden
+    }
+    .checkbox-item:hover{border-color:#7c3aed;background:#fff;transform:translateY(-3px);box-shadow:0 10px 25px rgba(107,70,193,.3)}
+    .checkbox-item.selected{border-color:#6b46c1;background:#7c3aed;color:#fff;transform:translateY(-5px) scale(1.02);box-shadow:0 15px 35px rgba(124,58,237,.4)}
+    .checkbox-item input{margin-right:12px;transform:scale(1.2)}
+    .option-emoji{font-size:2rem;margin-right:15px;filter:drop-shadow(2px 2px 4px rgba(0,0,0,.3));animation:float 3s ease-in-out infinite}
+    @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
 
-        .cart-logo { width: 80px; height: 80px; position: relative; }
-        .cart-body { width: 50px; height: 35px; background: #fbbf24; border: 4px solid #4c1d95; border-radius: 8px; position: absolute; top: 25px; left: 20px; }
-        .cart-handle { width: 20px; height: 25px; border: 4px solid #fbbf24; border-right: none; border-radius: 8px 0 0 8px; position: absolute; top: 25px; left: 0; }
-        .cart-wheel1, .cart-wheel2 { width: 8px; height: 8px; background: #fbbf24; border: 2px solid #4c1d95; border-radius: 50%; position: absolute; bottom: 8px; }
-        .cart-wheel1 { left: 25px; } .cart-wheel2 { right: 25px; }
+    .input-group{margin-bottom:20px}
+    .input-group label{display:block;margin-bottom:8px;font-weight:600;color:#555}
+    input[type="text"],input[type="number"],select{
+      width:100%;padding:18px 20px;border:2px solid rgba(251,191,36,.3);border-radius:15px;font-size:1.1rem;
+      background:linear-gradient(135deg,rgba(255,255,255,.95),rgba(251,191,36,.1));backdrop-filter:blur(10px);transition:all .3s ease;
+      font-family:'Inter',sans-serif;font-weight:500
+    }
+    input:focus,select:focus{outline:none;border-color:#fbbf24;background:rgba(255,255,255,.95);box-shadow:0 0 0 3px rgba(251,191,36,.3),0 8px 25px rgba(124,58,237,.2);transform:translateY(-2px)}
 
-        .smiley-face {
-            position: absolute; top: 5px; left: 25px; width: 30px; height: 30px; background: #fbbf24;
-            border: 3px solid #4c1d95; border-radius: 50%;
-        }
-        .smiley-eyes { position: absolute; top: 8px; left: 8px; }
-        .smiley-eyes::before, .smiley-eyes::after {
-            content: ''; width: 4px; height: 6px; background: #4c1d95; border-radius: 50%; position: absolute;
-        }
-        .smiley-eyes::before { left: 0; }
-        .smiley-eyes::after { right: 0; left: 10px; }
-        .smiley-mouth {
-            position: absolute; bottom: 6px; left: 6px; width: 16px; height: 8px; border: 2px solid #4c1d95;
-            border-top: none; border-radius: 0 0 16px 16px;
-        }
+    .btn{
+      width:100%;padding:16px;border:none;border-radius:18px;font-size:1.05rem;font-weight:700;cursor:pointer;
+      transition:all .2s cubic-bezier(.4,0,.2,1);margin-top:16px;background:#7c3aed;color:#fff;text-transform:uppercase;letter-spacing:.6px;
+      box-shadow:0 8px 22px rgba(124,58,237,.35)
+    }
+    .btn:hover{transform:translateY(-2px);background:#6b46c1;box-shadow:0 14px 32px rgba(124,58,237,.45)}
+    .btn:active{transform:translateY(-1px) scale(.99)}
+    .btn.secondary{background:#fff;color:#6b46c1;border:2px solid #6b46c1;box-shadow:none;text-transform:none}
+    .btn.secondary:hover{background:#6b46c1;color:#fff}
 
-        .app-title {
-            font-size: 2.8rem; font-weight: 800; margin-bottom: 5px; letter-spacing: 1px; color: #6b46c1;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-        .subtitle { font-size: 1.1rem; opacity: 0.9; font-weight: 500; color: #7c3aed; }
+    .progress-text{text-align:center;color:#6b46c1;margin-bottom:20px;font-weight:600}
 
-        .card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            border-radius: 25px;
-            padding: 30px;
-            margin-bottom: 25px;
-            box-shadow:
-                0 20px 40px rgba(139, 92, 246, 0.3),
-                0 10px 20px rgba(251, 191, 36, 0.2),
-                inset 0 1px 0 rgba(255, 255, 255, 0.6);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .card:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow:
-                0 30px 60px rgba(139, 92, 246, 0.4),
-                0 15px 30px rgba(251, 191, 36, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.8);
-        }
+    .radio-item{
+      display:flex;align-items:center;padding:18px;border:2px solid #6b46c1;border-radius:16px;cursor:pointer;margin-bottom:15px;
+      background:rgba(255,255,255,.9);transition:all .3s ease
+    }
+    .radio-item:hover{border-color:#7c3aed;background:#fff;transform:translateY(-2px);box-shadow:0 8px 20px rgba(107,70,193,.3)}
+    .radio-item.selected{border-color:#6b46c1;background:#7c3aed;color:#fff;transform:translateY(-3px);box-shadow:0 12px 30px rgba(124,58,237,.4)}
 
-        .step-indicator { display: flex; justify-content: center; margin-bottom: 25px; gap: 10px; }
-        .step { width: 12px; height: 12px; border-radius: 50%; background: #e0e0e0; transition: all 0.3s ease; }
-        .step.active { background: linear-gradient(135deg, #8b5cf6, #fde047); transform: scale(1.4); box-shadow: 0 4px 15px rgba(139, 92, 246, 0.6); }
-        .step.completed { background: linear-gradient(135deg, #10b981, #fbbf24); transform: scale(1.2); }
+    .loading{text-align:center;padding:40px}
+    .spinner{
+      width:60px;height:60px;border:5px solid rgba(253,224,71,.3);border-top:5px solid #8b5cf6;border-right:5px solid #fde047;border-radius:50%;
+      animation:spin 1s linear infinite;margin:0 auto 20px;filter:drop-shadow(0 4px 8px rgba(139,92,246,.3))
+    }
+    @keyframes spin{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}
 
-        .screen { display: none; }
-        .screen.active { display: block; }
+    .list-item{
+      background:linear-gradient(135deg,rgba(255,255,255,.95),rgba(253,224,71,.1));
+      backdrop-filter:blur(15px);border-radius:18px;padding:25px;margin-bottom:20px;border-left:5px solid #8b5cf6;border:1px solid rgba(139,92,246,.2);
+      box-shadow:0 8px 25px rgba(139,92,246,.2);transition:all .3s ease
+    }
+    .list-item:hover{transform:translateY(-3px);box-shadow:0 15px 35px rgba(139,92,246,.3)}
+    .item-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px}
+    .item-title{font-weight:bold;color:#333;font-size:1.2rem}
+    .quantity-badge{background:#7c3aed;color:#fff;padding:6px 16px;border-radius:25px;font-size:.9rem;font-weight:600;box-shadow:0 4px 12px rgba(124,58,237,.3)}
+    .product-block{margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid rgba(0,0,0,.06)}
+    .product-block:last-child{border-bottom:none}
+    .product-name{font-weight:600;color:#444;margin-bottom:6px;font-size:1.05rem}
+    .product-details{color:#666;line-height:1.55}
+    .price{font-weight:700;color:#7c3aed;font-size:1.05rem}
 
-        h2 {
-            color: #6b46c1; margin-bottom: 25px; font-size: 2rem; text-align: center; font-weight: 700;
-        }
+    .summary-card{
+      background:#7c3aed;color:#fff;border-radius:20px;padding:30px;margin-top:25px;box-shadow:0 20px 40px rgba(124,58,237,.4);border:1px solid rgba(255,255,255,.2)
+    }
+    .summary-row{display:flex;justify-content:space-between;margin-bottom:12px;align-items:center}
+    .summary-row:last-child{margin-bottom:0;padding-top:15px;border-top:1px solid rgba(255,255,255,.3);font-weight:bold;font-size:1.2rem}
 
-        .emoji-header {
-            font-size: 4rem; text-align: center; margin-bottom: 20px;
-            filter: drop-shadow(3px 3px 6px rgba(0, 0, 0, 0.3)); animation: bounce 2s ease-in-out infinite;
-        }
-        @keyframes bounce { 0%, 20%, 50%, 80%, 100% { transform: translateY(0); } 40% { transform: translateY(-10px); } 60% { transform: translateY(-5px); } }
-
-        .option-group { margin-bottom: 25px; }
-        .checkbox-group { display: grid; gap: 12px; }
-
-        .checkbox-item {
-            display: flex; align-items: center; padding: 20px; border: 2px solid #6b46c1; border-radius: 18px; cursor: pointer;
-            transition: all 0.3s ease; background: rgba(255, 255, 255, 0.95); position: relative; overflow: hidden;
-        }
-        .checkbox-item:hover { border-color: #7c3aed; background: rgba(255, 255, 255, 1); transform: translateY(-3px); box-shadow: 0 10px 25px rgba(107, 70, 193, 0.3); }
-        .checkbox-item.selected {
-            border-color: #6b46c1; background: #7c3aed; color: white; transform: translateY(-5px) scale(1.02);
-            box-shadow: 0 15px 35px rgba(124, 58, 237, 0.4);
-        }
-        .checkbox-item input { margin-right: 12px; transform: scale(1.2); }
-
-        .option-emoji { font-size: 2rem; margin-right: 15px; filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3)); animation: float 3s ease-in-out infinite; }
-        @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-5px); } }
-
-        .input-group { margin-bottom: 20px; }
-        .input-group label { display: block; margin-bottom: 8px; font-weight: 600; color: #555; }
-
-        input[type="text"], input[type="number"], select {
-            width: 100%; padding: 18px 20px; border: 2px solid rgba(251, 191, 36, 0.3); border-radius: 15px; font-size: 1.1rem;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(251, 191, 36, 0.1));
-            backdrop-filter: blur(10px); transition: all 0.3s ease; font-family: 'Inter', sans-serif; font-weight: 500;
-        }
-        input:focus, select:focus {
-            outline: none; border-color: #fbbf24; background: rgba(255, 255, 255, 0.95);
-            box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.3), 0 8px 25px rgba(124, 58, 237, 0.2);
-            transform: translateY(-2px);
-        }
-
-        .btn {
-            width: 100%; padding: 20px; border: none; border-radius: 18px; font-size: 1.2rem; font-weight: 700; cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); margin-top: 25px; background: #7c3aed; color: white;
-            text-transform: uppercase; letter-spacing: 1px; position: relative; overflow: hidden;
-            box-shadow: 0 10px 25px rgba(124, 58, 237, 0.4);
-        }
-        .btn:hover { transform: translateY(-4px) scale(1.02); background: #6b46c1; box-shadow: 0 20px 40px rgba(124, 58, 237, 0.5); }
-        .btn:active { transform: translateY(-2px) scale(0.98); }
-
-        .progress-text { text-align: center; color: #6b46c1; margin-bottom: 20px; font-weight: 600; }
-
-        .radio-item {
-            display: flex; align-items: center; padding: 18px; border: 2px solid #6b46c1; border-radius: 16px; cursor: pointer;
-            margin-bottom: 15px; background: rgba(255, 255, 255, 0.9); transition: all 0.3s ease;
-        }
-        .radio-item:hover { border-color: #7c3aed; background: rgba(255, 255, 255, 1); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(107, 70, 193, 0.3); }
-        .radio-item.selected { border-color: #6b46c1; background: #7c3aed; color: white; transform: translateY(-3px); box-shadow: 0 12px 30px rgba(124, 58, 237, 0.4); }
-
-        .loading { text-align: center; padding: 40px; }
-        .spinner {
-            width: 60px; height: 60px; border: 5px solid rgba(253, 224, 71, 0.3); border-top: 5px solid #8b5cf6; border-right: 5px solid #fde047;
-            border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 20px; filter: drop-shadow(0 4px 8px rgba(139, 92, 246, 0.3));
-        }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-
-        .list-item {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(253, 224, 71, 0.1));
-            backdrop-filter: blur(15px); border-radius: 18px; padding: 25px; margin-bottom: 20px;
-            border-left: 5px solid #8b5cf6; border: 1px solid rgba(139, 92, 246, 0.2); box-shadow: 0 8px 25px rgba(139, 92, 246, 0.2);
-            transition: all 0.3s ease;
-        }
-        .list-item:hover { transform: translateY(-3px); box-shadow: 0 15px 35px rgba(139, 92, 246, 0.3); }
-
-        .item-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
-        .item-title { font-weight: bold; color: #333; font-size: 1.2rem; }
-        .quantity-badge { background: #7c3aed; color: white; padding: 6px 16px; border-radius: 25px; font-size: 0.9rem; font-weight: 600; box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3); }
-
-        .product-name { font-weight: 600; color: #444; margin-bottom: 8px; font-size: 1.05rem; }
-        .product-details { color: #666; line-height: 1.6; }
-        .price { font-weight: 700; color: #7c3aed; font-size: 1.05rem; }
-
-        .summary-card {
-            background: #7c3aed; color: white; border-radius: 20px; padding: 30px; margin-top: 25px;
-            box-shadow: 0 20px 40px rgba(124, 58, 237, 0.4); border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        .summary-row { display: flex; justify-content: space-between; margin-bottom: 12px; align-items: center; }
-        .summary-row:last-child { margin-bottom: 0; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.3); font-weight: bold; font-size: 1.2rem; }
-
-        #generateBtn { display: none; }
-        .util-row { display:flex; gap: 12px; margin-top: 12px; }
-        .util { flex:1; background:#fefefe; color:#6b46c1; border:2px solid #6b46c1; }
-        .util:hover { background:#6b46c1; color:#fff; }
-    </style>
+    .util-row{display:flex;gap:12px;margin-top:12px}
+    .util{flex:1;background:#fff;color:#6b46c1;border:2px solid #6b46c1}
+    .util:hover{background:#6b46c1;color:#fff}
+  </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <div class="logo">
-                <div class="cart-logo">
-                    <div class="cart-handle"></div>
-                    <div class="cart-body"></div>
-                    <div class="cart-wheel1"></div>
-                    <div class="cart-wheel2"></div>
-                    <div class="smiley-face">
-                        <div class="smiley-eyes"></div>
-                        <div class="smiley-mouth"></div>
-                    </div>
-                </div>
-            </div>
-            <h1 class="app-title">Happy Grocer</h1>
-            <p class="subtitle">Shopping Smart for Happy Carts</p>
+  <div class="container">
+    <div class="header">
+      <div class="logo">
+        <div class="cart-logo">
+          <div class="cart-handle"></div><div class="cart-body"></div><div class="cart-wheel1"></div><div class="cart-wheel2"></div>
+          <div class="smiley-face"><div class="smiley-eyes"></div><div class="smiley-mouth"></div></div>
         </div>
-
-        <div class="step-indicator">
-            <div class="step active" id="step1"></div>
-            <div class="step" id="step2"></div>
-            <div class="step" id="step3"></div>
-            <div class="step" id="step4"></div>
-            <div class="step" id="step5"></div>
-        </div>
-
-        <div class="progress-text" id="progressText">Step 1 of 5</div>
-
-        <!-- Screen 1: Priorities -->
-        <div class="screen active" id="screen1">
-            <div class="card">
-                <div class="emoji-header"><span style="color: #8b5cf6;">🎯</span></div>
-                <h2>What's Your Shopping Goal?</h2>
-                <p style="text-align: center; margin-bottom: 25px; color: #666;">Choose your priorities (you can select multiple)</p>
-
-                <div class="option-group">
-                    <div class="checkbox-group">
-                        <div class="checkbox-item" onclick="selectOption(this, 'budget')">
-                            <input type="checkbox" id="budget"><span class="option-emoji">💰</span><span>Budget-friendly (cheapest options)</span>
-                        </div>
-                        <div class="checkbox-item" onclick="selectOption(this, 'health')">
-                            <input type="checkbox" id="health"><span class="option-emoji">🥗</span><span>Health-focused (nutritious options)</span>
-                        </div>
-                        <div class="checkbox-item" onclick="selectOption(this, 'calories')">
-                            <input type="checkbox" id="calories"><span class="option-emoji">🔥</span><span>Low-calorie (fewest calories)</span>
-                        </div>
-                    </div>
-                </div>
-
-                <button class="btn" onclick="goToScreen(2)">Continue</button>
-            </div>
-        </div>
-
-        <!-- Screen 2: Dietary -->
-        <div class="screen" id="screen2">
-            <div class="card">
-                <div class="emoji-header"><span style="color: #fbbf24;">🥗</span></div>
-                <h2>Dietary Preferences</h2>
-                <p style="text-align: center; margin-bottom: 25px; color: #666;">Select any dietary restrictions</p>
-
-                <div class="option-group">
-                    <div class="checkbox-group">
-                        <div class="checkbox-item" onclick="selectOption(this, 'vegetarian')">
-                            <input type="checkbox" id="vegetarian"><span class="option-emoji">🌱</span><span>Vegetarian</span>
-                        </div>
-                        <div class="checkbox-item" onclick="selectOption(this, 'vegan')">
-                            <input type="checkbox" id="vegan"><span class="option-emoji">🌿</span><span>Vegan</span>
-                        </div>
-                        <div class="checkbox-item" onclick="selectOption(this, 'keto')">
-                            <input type="checkbox" id="keto"><span class="option-emoji">🥓</span><span>Keto</span>
-                        </div>
-                        <div class="checkbox-item" onclick="selectOption(this, 'gluten_free')">
-                            <input type="checkbox" id="gluten_free"><span class="option-emoji">🌾</span><span>Gluten-Free</span>
-                        </div>
-                        <div class="checkbox-item" onclick="selectOption(this, 'high_protein')">
-                            <input type="checkbox" id="high_protein"><span class="option-emoji">💪</span><span>High Protein</span>
-                        </div>
-                    </div>
-                </div>
-
-                <button class="btn" onclick="goToScreen(3)">Continue</button>
-            </div>
-        </div>
-
-        <!-- Screen 3: Food Categories -->
-        <div class="screen" id="screen3">
-            <div class="card">
-                <div class="emoji-header"><span style="color: #8b5cf6;">🍽️</span></div>
-                <h2>What Do You Need?</h2>
-                <p style="text-align: center; margin-bottom: 25px; color: #666;">Select food categories</p>
-
-                <div class="option-group">
-                    <div class="checkbox-group">
-                        <div class="checkbox-item" onclick="selectOption(this, 'proteins')">
-                            <input type="checkbox" id="proteins"><span class="option-emoji">🍗</span><span>Proteins</span>
-                        </div>
-                        <div class="checkbox-item" onclick="selectOption(this, 'dairy')">
-                            <input type="checkbox" id="dairy"><span class="option-emoji">🥛</span><span>Dairy</span>
-                        </div>
-                        <div class="checkbox-item" onclick="selectOption(this, 'grains')">
-                            <input type="checkbox" id="grains"><span class="option-emoji">🍞</span><span>Grains</span>
-                        </div>
-                        <div class="checkbox-item" onclick="selectOption(this, 'fruits')">
-                            <input type="checkbox" id="fruits"><span class="option-emoji">🍎</span><span>Fruits</span>
-                        </div>
-                        <div class="checkbox-item" onclick="selectOption(this, 'vegetables')">
-                            <input type="checkbox" id="vegetables"><span class="option-emoji">🥬</span><span>Vegetables</span>
-                        </div>
-                        <div class="checkbox-item" onclick="selectOption(this, 'snacks')">
-                            <input type="checkbox" id="snacks"><span class="option-emoji">🥜</span><span>Snacks</span>
-                        </div>
-                    </div>
-                </div>
-
-                <button class="btn" onclick="validateAndGoToScreen(4)">Continue</button>
-            </div>
-        </div>
-
-        <!-- Screen 4: Household -->
-        <div class="screen" id="screen4">
-            <div class="card">
-                <div class="emoji-header"><span style="color: #fbbf24;">👨‍👩‍👧‍👦</span></div>
-                <h2>Household Details</h2>
-
-                <div class="input-group">
-                    <label>👥 How many people?</label>
-                    <input type="number" id="householdSize" value="2" min="1">
-                </div>
-
-                <div class="input-group">
-                    <label>📅 How many weeks?</label>
-                    <select id="duration">
-                        <option value="1">1 week</option>
-                        <option value="2">2 weeks</option>
-                    </select>
-                </div>
-
-                <div class="input-group">
-                    <label>💰 Budget (optional)</label>
-                    <input type="number" id="budget" placeholder="Enter budget">
-                </div>
-
-                <div class="input-group">
-                    <label>📍 Zip code</label>
-                    <input type="text" id="zipcode" placeholder="12345">
-                </div>
-
-                <button class="btn" onclick="generateList()">Generate My List</button>
-            </div>
-        </div>
-
-        <!-- Screen 5: Stores -->
-        <div class="screen" id="screen5">
-            <div class="card">
-                <div class="emoji-header"><span style="color: #8b5cf6;">🛍️</span></div>
-                <h2>Choose Your Store</h2>
-
-                <div id="storesList">
-                    <div class="radio-item" onclick="selectStore(this, '1')">
-                        <input type="radio" name="store" value="1">
-                        <div>
-                            <div style="font-weight: bold;">Kroger - Main Street</div>
-                            <div style="color: #666;">123 Main St, Anytown, ST 12345</div>
-                        </div>
-                    </div>
-                    <div class="radio-item" onclick="selectStore(this, '2')">
-                        <input type="radio" name="store" value="2">
-                        <div>
-                            <div style="font-weight: bold;">Kroger - Downtown</div>
-                            <div style="color: #666;">456 Oak Ave, Anytown, ST 12345</div>
-                        </div>
-                    </div>
-                    <div class="radio-item" onclick="selectStore(this, '3')">
-                        <input type="radio" name="store" value="3">
-                        <div>
-                            <div style="font-weight: bold;">Kroger - Eastside</div>
-                            <div style="color: #666;">789 Pine Rd, Anytown, ST 12345</div>
-                        </div>
-                    </div>
-                </div>
-
-                <button class="btn" id="generateBtn" onclick="generateList()">Generate My Shopping List</button>
-            </div>
-        </div>
-
-        <!-- Loading Screen -->
-        <div class="screen" id="loadingScreen">
-            <div class="card">
-                <div class="loading">
-                    <div class="spinner"></div>
-                    <h2>Creating Your Smart Shopping List</h2>
-                    <p>Finding the best items...</p>
-                    <p>Optimizing for your choices...</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Results Screen -->
-        <div class="screen" id="resultsScreen">
-            <div class="card">
-                <div class="emoji-header"><span style="color: #fbbf24;">✨</span></div>
-                <h2>Your Smart Shopping List</h2>
-
-                <div id="shoppingList"><!-- Results will go here --></div>
-
-                <div class="summary-card" id="summary"><!-- Summary will go here --></div>
-
-                <div class="util-row">
-                    <button class="btn util" onclick="copyList()">Copy List</button>
-                    <button class="btn util" onclick="emailList()">Email Me This</button>
-                </div>
-
-                <div class="util-row">
-                    <button class="btn" onclick="printList()" style="flex: 1; background: #7c3aed;">Print List</button>
-                    <button class="btn" onclick="saveList()" style="flex: 1; background: #7c3aed;">Save List</button>
-                </div>
-
-                <button class="btn" onclick="startOver()" style="margin-top:16px;">Create Another List</button>
-            </div>
-        </div>
+      </div>
+      <h1 class="app-title">Happy Grocer</h1>
+      <p class="subtitle">Shopping Smart for Happy Carts</p>
     </div>
 
-    <script>
-        // ---------- App State ----------
-        var currentScreen = 1;
-        var selectedStore = null;
-        var generatedText = ""; // plain text version for copy/email/save
-        var lastPlanKey = "";   // which prewritten plan used
+    <div class="step-indicator">
+      <div class="step active" id="step1"></div>
+      <div class="step" id="step2"></div>
+      <div class="step" id="step3"></div>
+      <div class="step" id="step4"></div>
+      <div class="step" id="step5"></div>
+    </div>
+    <div class="progress-text" id="progressText">Step 1 of 5</div>
 
-        // ---------- Helpers for UI flow ----------
-        function selectOption(element, value) {
-            var checkbox = element.querySelector('input');
-            checkbox.checked = !checkbox.checked;
-            if (checkbox.checked) { element.classList.add('selected'); }
-            else { element.classList.remove('selected'); }
+    <!-- Screen 1 -->
+    <div class="screen active" id="screen1">
+      <div class="card">
+        <div class="emoji-header"><span style="color:#8b5cf6;">🎯</span></div>
+        <h2>What's Your Shopping Goal?</h2>
+        <p style="text-align:center;margin-bottom:25px;color:#666;">Choose your priorities (you can select multiple)</p>
+        <div class="option-group">
+          <div class="checkbox-group">
+            <div class="checkbox-item" onclick="selectOption(this,'budget')">
+              <input type="checkbox" id="budget"><span class="option-emoji">💰</span><span>Budget-friendly (cheapest options)</span>
+            </div>
+            <div class="checkbox-item" onclick="selectOption(this,'health')">
+              <input type="checkbox" id="health"><span class="option-emoji">🥗</span><span>Health-focused (nutritious options)</span>
+            </div>
+            <div class="checkbox-item" onclick="selectOption(this,'calories')">
+              <input type="checkbox" id="calories"><span class="option-emoji">🔥</span><span>Low-calorie (fewest calories)</span>
+            </div>
+          </div>
+        </div>
+        <button class="btn" onclick="goToScreen(2)">Continue</button>
+      </div>
+    </div>
+
+    <!-- Screen 2 -->
+    <div class="screen" id="screen2">
+      <div class="card">
+        <div class="emoji-header"><span style="color:#fbbf24;">🥗</span></div>
+        <h2>Dietary Preferences</h2>
+        <p style="text-align:center;margin-bottom:25px;color:#666;">Select any dietary restrictions</p>
+        <div class="option-group">
+          <div class="checkbox-group">
+            <div class="checkbox-item" onclick="selectOption(this,'vegetarian')">
+              <input type="checkbox" id="vegetarian"><span class="option-emoji">🌱</span><span>Vegetarian</span>
+            </div>
+            <div class="checkbox-item" onclick="selectOption(this,'vegan')">
+              <input type="checkbox" id="vegan"><span class="option-emoji">🌿</span><span>Vegan</span>
+            </div>
+            <div class="checkbox-item" onclick="selectOption(this,'keto')">
+              <input type="checkbox" id="keto"><span class="option-emoji">🥓</span><span>Keto</span>
+            </div>
+            <div class="checkbox-item" onclick="selectOption(this,'gluten_free')">
+              <input type="checkbox" id="gluten_free"><span class="option-emoji">🌾</span><span>Gluten-Free</span>
+            </div>
+            <div class="checkbox-item" onclick="selectOption(this,'high_protein')">
+              <input type="checkbox" id="high_protein"><span class="option-emoji">💪</span><span>High Protein</span>
+            </div>
+          </div>
+        </div>
+        <div class="util-row">
+          <button class="btn secondary" onclick="goBack()">Back</button>
+          <button class="btn" onclick="goToScreen(3)">Continue</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Screen 3 -->
+    <div class="screen" id="screen3">
+      <div class="card">
+        <div class="emoji-header"><span style="color:#8b5cf6;">🍽️</span></div>
+        <h2>What Do You Need?</h2>
+        <p style="text-align:center;margin-bottom:25px;color:#666;">Select food categories</p>
+        <div class="option-group">
+          <div class="checkbox-group">
+            <div class="checkbox-item" onclick="selectOption(this,'proteins')">
+              <input type="checkbox" id="proteins"><span class="option-emoji">🍗</span><span>Proteins</span>
+            </div>
+            <div class="checkbox-item" onclick="selectOption(this,'dairy')">
+              <input type="checkbox" id="dairy"><span class="option-emoji">🥛</span><span>Dairy</span>
+            </div>
+            <div class="checkbox-item" onclick="selectOption(this,'grains')">
+              <input type="checkbox" id="grains"><span class="option-emoji">🍞</span><span>Grains</span>
+            </div>
+            <div class="checkbox-item" onclick="selectOption(this,'fruits')">
+              <input type="checkbox" id="fruits"><span class="option-emoji">🍎</span><span>Fruits</span>
+            </div>
+            <div class="checkbox-item" onclick="selectOption(this,'vegetables')">
+              <input type="checkbox" id="vegetables"><span class="option-emoji">🥬</span><span>Vegetables</span>
+            </div>
+            <div class="checkbox-item" onclick="selectOption(this,'snacks')">
+              <input type="checkbox" id="snacks"><span class="option-emoji">🥜</span><span>Snacks</span>
+            </div>
+          </div>
+        </div>
+        <div class="util-row">
+          <button class="btn secondary" onclick="goBack()">Back</button>
+          <button class="btn" onclick="validateAndGoToScreen(4)">Continue</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Screen 4 -->
+    <div class="screen" id="screen4">
+      <div class="card">
+        <div class="emoji-header"><span style="color:#fbbf24;">👨‍👩‍👧‍👦</span></div>
+        <h2>Household Details</h2>
+        <div class="input-group">
+          <label>👥 How many people?</label>
+          <input type="number" id="householdSize" value="2" min="1">
+        </div>
+        <div class="input-group">
+          <label>📅 How many weeks?</label>
+          <select id="duration">
+            <option value="1">1 week</option>
+            <option value="2">2 weeks</option>
+          </select>
+        </div>
+        <div class="input-group">
+          <label>💰 Budget (optional)</label>
+          <input type="number" id="budget" placeholder="Enter budget">
+        </div>
+        <div class="input-group">
+          <label>📍 Zip code</label>
+          <input type="text" id="zipcode" placeholder="12345">
+        </div>
+        <div class="util-row">
+          <button class="btn secondary" onclick="goBack()">Back</button>
+          <button class="btn" onclick="goToScreen(5)">Find Stores</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Screen 5 -->
+    <div class="screen" id="screen5">
+      <div class="card">
+        <div class="emoji-header"><span style="color:#8b5cf6;">🛍️</span></div>
+        <h2>Choose Your Store</h2>
+        <div id="storesList">
+          <div class="radio-item" onclick="selectStore(this,'1')">
+            <input type="radio" name="store" value="1">
+            <div><div style="font-weight:bold;">Kroger - Main Street</div><div style="color:#666;">123 Main St, Anytown, ST 12345</div></div>
+          </div>
+          <div class="radio-item" onclick="selectStore(this,'2')">
+            <input type="radio" name="store" value="2">
+            <div><div style="font-weight:bold;">Kroger - Downtown</div><div style="color:#666;">456 Oak Ave, Anytown, ST 12345</div></div>
+          </div>
+          <div class="radio-item" onclick="selectStore(this,'3')">
+            <input type="radio" name="store" value="3">
+            <div><div style="font-weight:bold;">Kroger - Eastside</div><div style="color:#666;">789 Pine Rd, Anytown, ST 12345</div></div>
+          </div>
+        </div>
+        <div class="util-row">
+          <button class="btn secondary" onclick="goBack()">Back</button>
+          <button class="btn secondary" onclick="skipStore()">Skip Store</button>
+          <button class="btn" id="generateBtn" onclick="generateList()">Generate My Shopping List</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Loading -->
+    <div class="screen" id="loadingScreen">
+      <div class="card">
+        <div class="loading">
+          <div class="spinner"></div>
+          <h2>Creating Your Smart Shopping List</h2>
+          <p>Finding the best items...</p><p>Optimizing for your choices...</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Results -->
+    <div class="screen" id="resultsScreen">
+      <div class="card">
+        <div class="emoji-header"><span style="color:#fbbf24;">✨</span></div>
+        <h2>Your Smart Shopping List</h2>
+        <div id="shoppingList"></div>
+        <div class="summary-card" id="summary"></div>
+        <div class="util-row">
+          <button class="btn util" onclick="copyList()">Copy List</button>
+          <button class="btn util" onclick="emailList()">Email Me This</button>
+        </div>
+        <div class="util-row">
+          <button class="btn" onclick="printList()" style="flex:1;background:#7c3aed;">Print List</button>
+          <button class="btn" onclick="saveList()" style="flex:1;background:#7c3aed;">Save List</button>
+        </div>
+        <button class="btn" onclick="startOver()" style="margin-top:16px;">Create Another List</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ------------ State & Navigation ------------
+    var currentScreen = 1;
+    var selectedStore = null;
+    var generatedText = "";
+    var lastPlanKey = "";
+
+    function selectOption(el){ const cb=el.querySelector('input'); cb.checked=!cb.checked; el.classList.toggle('selected',cb.checked); }
+    function selectStore(el,id){
+      document.querySelectorAll('.radio-item').forEach(x=>{x.classList.remove('selected'); x.querySelector('input').checked=false;});
+      el.classList.add('selected'); el.querySelector('input').checked=true; selectedStore=id;
+    }
+    function updateSteps(step){
+      for(let i=1;i<=5;i++){ const s=document.getElementById('step'+i);
+        s.className = i<step ? 'step completed' : (i===step?'step active':'step'); }
+      document.getElementById('progressText').textContent='Step '+step+' of 5';
+    }
+    function goToScreen(n){
+      document.getElementById('screen'+currentScreen).classList.remove('active');
+      document.getElementById('screen'+n).classList.add('active');
+      currentScreen=n; updateSteps(n);
+    }
+    function goBack(){ if(currentScreen>1) goToScreen(currentScreen-1); }
+    function validateAndGoToScreen(n){
+      const any=[...document.querySelectorAll('#screen3 input[type="checkbox"]')].some(c=>c.checked);
+      if(!any){ alert('Please select at least one food category!'); return; }
+      goToScreen(n);
+    }
+    function skipStore(){ generateList(); }
+
+    // ------------ Catalog & Plans (tagged) ------------
+    // tags: vegan, vegetarian, dairy, meat, fish, gluten, high-carb, protein, snack, fruit, veg, grain
+    const CATALOG = [
+      // proteins omni/veg/vegan
+      {name:'Chicken breast', note:'2 lbs', price:12, tags:['protein','meat']},
+      {name:'Ground turkey', note:'2 lbs', price:10, tags:['protein','meat']},
+      {name:'Salmon fillets', note:'1 lb', price:9, tags:['protein','fish']},
+      {name:'Eggs', note:'1 dozen', price:3, tags:['protein','vegetarian','dairy']},
+      {name:'Greek yogurt', note:'32 oz', price:5, tags:['protein','vegetarian','dairy']},
+      {name:'Canned tuna', note:'4 cans', price:4, tags:['protein','fish']},
+      {name:'Tofu', note:'2 blocks', price:6, tags:['protein','vegan','vegetarian']},
+      {name:'Tempeh', note:'1 pack', price:4, tags:['protein','vegan','vegetarian']},
+      {name:'Lentils', note:'2 lbs', price:4, tags:['vegan','vegetarian','high-carb','protein']},
+      {name:'Chickpeas', note:'2 cans', price:3, tags:['vegan','vegetarian','high-carb','protein']},
+      {name:'Edamame', note:'12 oz', price:4, tags:['vegan','vegetarian','protein']},
+
+      // dairy
+      {name:'Milk', note:'64 fl oz', price:3.5, tags:['dairy','vegetarian']},
+      {name:'Cottage cheese', note:'16 oz', price:4, tags:['dairy','vegetarian','protein']},
+
+      // grains
+      {name:'Whole-wheat pasta', note:'1 lb', price:3, tags:['grain','gluten','high-carb']},
+      {name:"Dave's Killer Bread", note:'27 oz', price:5, tags:['grain','gluten','high-carb']},
+      {name:'Brown rice', note:'2 lbs', price:4, tags:['grain','high-carb']},
+      {name:'Quinoa', note:'1 lb', price:5, tags:['grain','high-carb','gluten-free']},
+      {name:'Cauliflower rice', note:'2 frozen bags', price:6, tags:['veg','vegan','vegetarian']},
+      {name:'Zucchini', note:'4', price:4, tags:['veg','vegan','vegetarian']},
+      {name:'Avocado', note:'2', price:3, tags:['veg','vegan','vegetarian']},
+
+      // fruits & veg
+      {name:'Bananas', note:'6', price:2, tags:['fruit','vegan','vegetarian','high-carb']},
+      {name:'Apples', note:'4', price:3, tags:['fruit','vegan','vegetarian']},
+      {name:'Spinach', note:'1 bag', price:3, tags:['veg','vegan','vegetarian']},
+      {name:'Broccoli', note:'2 heads', price:3, tags:['veg','vegan','vegetarian']},
+
+      // snacks
+      {name:'Almonds', note:'12 oz', price:6, tags:['snack','vegan','vegetarian','protein']},
+      {name:'String cheese', note:'10 sticks', price:5, tags:['snack','dairy','vegetarian','protein']},
+      {name:'Hummus', note:'10 oz', price:4, tags:['snack','vegan','vegetarian']},
+      {name:'Popcorn kernels', note:'1 lb', price:3, tags:['snack','vegan','vegetarian','grain','high-carb']},
+      {name:'Dark chocolate (70%)', note:'3.5 oz', price:3, tags:['snack','vegan','vegetarian']}
+    ];
+
+    const BASE_PLANS = {
+      "vegan":      ['Tofu','Lentils','Chickpeas','Frozen mixed veggies','Spinach'],
+      "vegetarian": ['Eggs','Greek yogurt','Tofu','Spinach','Whole-wheat pasta'],
+      "low-carb":   ['Ground turkey','Eggs','Zucchini','Cauliflower rice','Cheese'],
+      "high-protein": ['Chicken breast','Eggs','Greek yogurt','Canned tuna','Black beans']
+    };
+    // map names to CATALOG entries (with graceful fallback)
+    function catByName(n){
+      return CATALOG.find(x=>x.name===n) ||
+        (n==='Frozen mixed veggies' ? {name:n, note:'2 bags', price:4, tags:['veg','vegan','vegetarian']} :
+         n==='Cheese' ? {name:n, note:'8 oz', price:4, tags:['dairy','vegetarian','protein']} :
+         n==='Black beans' ? {name:n, note:'2 cans', price:2, tags:['vegan','vegetarian','protein']} :
+         null);
+    }
+
+    function getFlags(){
+      return {
+        vegan: document.getElementById('vegan').checked,
+        vegetarian: document.getElementById('vegetarian').checked,
+        keto: document.getElementById('keto').checked,
+        gluten_free: document.getElementById('gluten_free').checked,
+        high_protein: document.getElementById('high_protein').checked
+      };
+    }
+    function allowedByFlags(item, f){
+      const t = item.tags || [];
+      if (f.vegan && (t.includes('meat') || t.includes('fish') || t.includes('dairy'))) return false;
+      if (f.vegetarian && (t.includes('meat') || t.includes('fish'))) return false;
+      if (f.keto && t.includes('high-carb')) return false;
+      if (f.gluten_free && t.includes('gluten')) return false;
+      return true;
+    }
+    function pickBaseKey(f){
+      if (f.vegan) return 'vegan';
+      if (f.vegetarian) return 'vegetarian';
+      if (f.keto) return 'low-carb';
+      if (f.high_protein) return 'high-protein';
+      return 'high-protein';
+    }
+
+    function uniqByName(arr){
+      const seen=new Set(); const out=[];
+      for(const it of arr){ if(!seen.has(it.name)){ seen.add(it.name); out.push(it); } }
+      return out;
+    }
+
+    function addCategoryPicks(arr, f, category, max=2){
+      // Choose items in CATALOG with matching category tags and diet-allowed
+      const tagMap = {
+        proteins: 'protein',
+        dairy: 'dairy',
+        grains: 'grain',
+        fruits: 'fruit',
+        vegetables: 'veg',
+        snacks: 'snack'
+      };
+      const tag = tagMap[category];
+      if(!tag) return;
+
+      const picks = CATALOG.filter(x => (x.tags||[]).includes(tag) && allowedByFlags(x, f));
+      // small deterministic selection: first `max` not already present
+      for (const p of picks){
+        if (arr.length >= 40) break; // safety
+        if (!arr.find(x=>x.name===p.name)){
+          arr.push(p);
+          if (--max<=0) break;
         }
+      }
+    }
 
-        function selectStore(element, storeId) {
-            var allStores = document.querySelectorAll('.radio-item');
-            for (var i = 0; i < allStores.length; i++) {
-                allStores[i].classList.remove('selected');
-                allStores[i].querySelector('input').checked = false;
-            }
-            element.classList.add('selected');
-            element.querySelector('input').checked = true;
-            selectedStore = storeId;
-            document.getElementById('generateBtn').style.display = 'block';
+    function applyHighProteinBoost(arr, f){
+      if (!f.high_protein) return arr;
+      const proteins = arr.filter(x => (x.tags||[]).includes('protein'));
+      if (proteins.length >= 3) return arr; // already protein-y
+
+      const pool = CATALOG.filter(x => (x.tags||[]).includes('protein') && allowedByFlags(x,f));
+      for (const p of pool){
+        if (!arr.find(x=>x.name===p.name)) arr.push(p);
+        if (arr.filter(x => (x.tags||[]).includes('protein')).length >= 3) break;
+      }
+      return arr;
+    }
+
+    // ------------ Generate & Render ------------
+    function generateList(){
+      // Whatever screen is active → hide it; show loading
+      const active=document.querySelector('.screen.active');
+      if(active) active.classList.remove('active');
+      document.getElementById('loadingScreen').classList.add('active');
+      setTimeout(showResults, 900);
+    }
+
+    function showResults(){
+      document.getElementById('loadingScreen').classList.remove('active');
+      document.getElementById('resultsScreen').classList.add('active');
+
+      const f = getFlags();
+
+      // base plan (diet-aware)
+      const baseKey = pickBaseKey(f);
+      lastPlanKey = baseKey;
+      let items = (BASE_PLANS[baseKey] || []).map(n => catByName(n)).filter(Boolean);
+
+      // Filter base items by diet flags (keto/gluten etc.)
+      items = items.filter(it => allowedByFlags(it, f));
+
+      // categories
+      const cats = {
+        proteins: document.getElementById('proteins').checked,
+        dairy: document.getElementById('dairy').checked,
+        grains: document.getElementById('grains').checked,
+        fruits: document.getElementById('fruits').checked,
+        vegetables: document.getElementById('vegetables').checked,
+        snacks: document.getElementById('snacks').checked
+      };
+      for (const [k,v] of Object.entries(cats)){
+        if (v) addCategoryPicks(items, f, k, k==='snacks'?2:1);
+      }
+
+      // ensure high-protein if requested
+      items = applyHighProteinBoost(items, f);
+
+      // final filter & dedupe
+      items = uniqByName(items).filter(it => allowedByFlags(it, f));
+
+      // compute totals
+      let total=0; for(const i of items){ total += (i.price||0); }
+      const titleMap = { 'high-protein':'High-Protein Plan','low-carb':'Low-Carb Plan','vegetarian':'Vegetarian Plan','vegan':'Vegan Plan' };
+      const planTitle = titleMap[baseKey] || 'Your Plan';
+
+      // render list with spacing
+      const listHTML = `
+        <div class="list-item">
+          <div class="item-header">
+            <span class="item-title">${planTitle}</span>
+            <span class="quantity-badge">Items: ${items.length}</span>
+          </div>
+          ${items.map(i => `
+            <div class="product-block">
+              <div class="product-name">${i.name}</div>
+              <div class="product-details">
+                ${i.note ? `<div>${i.note}</div>`:''}
+                <div class="price">$${(i.price||0).toFixed(2)}</div>
+              </div>
+            </div>
+          `).join('')}
+          <div class="product-details" style="margin-top:8px;color:#777;">*Prices are rough estimates. Swap items freely.</div>
+        </div>`;
+      document.getElementById('shoppingList').innerHTML = listHTML;
+
+      // priorities & summary
+      const priorities=[];
+      if(document.getElementById('budget').checked) priorities.push('Budget');
+      if(document.getElementById('health').checked) priorities.push('Health');
+      if(document.getElementById('calories').checked) priorities.push('Low-Calorie');
+
+      const householdSize=document.getElementById('householdSize').value;
+      const duration=document.getElementById('duration').value;
+      const zipcode=document.getElementById('zipcode').value;
+
+      document.getElementById('summary').innerHTML =
+        '<h3 style="margin-bottom:20px;text-align:center;">Shopping Summary</h3>'+
+        `<div class="summary-row"><span>Diet Plan:</span><span>${planTitle}</span></div>`+
+        `<div class="summary-row"><span>Priorities:</span><span>${priorities.length?priorities.join(', '):'None selected'}</span></div>`+
+        `<div class="summary-row"><span>Total Items:</span><span>${items.length}</span></div>`+
+        `<div class="summary-row"><span>Household:</span><span>${householdSize} people</span></div>`+
+        `<div class="summary-row"><span>Duration:</span><span>${duration} week(s)</span></div>`+
+        (zipcode ? `<div class="summary-row"><span>Nearest area:</span><span>${zipcode}</span></div>` : '')+
+        `<div class="summary-row"><span>Estimated Total:</span><span>$${total.toFixed(2)}</span></div>`;
+
+      // plain text for copy/email/save
+      generatedText = `${planTitle}\n` +
+        items.map(i=>`- ${i.name}${i.note?` (${i.note})`:''} – $${(i.price||0).toFixed(2)}`).join('\n') +
+        `\nEstimated total: $${total.toFixed(2)}` +
+        `\n\nHousehold: ${householdSize} people\nDuration: ${duration} week(s)` +
+        `\nPriorities: ${priorities.length?priorities.join(', '):'None selected'}` +
+        (zipcode?`\nArea: ${zipcode}`:'');
+    }
+
+    // ------------ Utilities ------------
+    function startOver(){
+      currentScreen=1;selectedStore=null;generatedText='';lastPlanKey='';
+      document.querySelectorAll('input[type="checkbox"]').forEach(c=>{c.checked=false; const p=c.closest('.checkbox-item'); if(p) p.classList.remove('selected');});
+      document.querySelectorAll('input[type="radio"]').forEach(r=>{r.checked=false; const p=r.closest('.radio-item'); if(p) p.classList.remove('selected');});
+      document.getElementById('householdSize').value='2';
+      document.getElementById('duration').value='1';
+      document.getElementById('budget').value='';
+      document.getElementById('zipcode').value='';
+      document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+      document.getElementById('screen1').classList.add('active');
+      updateSteps(1);
+    }
+
+    function copyList(){
+      if(!generatedText) return;
+      try{
+        if(navigator.clipboard?.writeText){ navigator.clipboard.writeText(generatedText); }
+        else{
+          const ta=document.createElement('textarea'); ta.value=generatedText; document.body.appendChild(ta);
+          ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
         }
+        alert('List copied to clipboard!');
+      }catch(e){ alert('Copy failed. You can still use Print or Save.'); }
+    }
 
-        function updateSteps(step) {
-            for (var i = 1; i <= 5; i++) {
-                var stepEl = document.getElementById('step' + i);
-                if (i < step) stepEl.className = 'step completed';
-                else if (i === step) stepEl.className = 'step active';
-                else stepEl.className = 'step';
-            }
-            document.getElementById('progressText').textContent = 'Step ' + step + ' of 5';
-        }
+    function emailList(){
+      if(!generatedText) return;
+      const subject=encodeURIComponent('Your Happy Grocer List');
+      const body=encodeURIComponent(generatedText+'\n\nGenerated at https://happygrocerco.github.io/happy-grocer/');
+      window.location.href=`mailto:?subject=${subject}&body=${body}`;
+    }
 
-        function goToScreen(screenNum) {
-            document.getElementById('screen' + currentScreen).classList.remove('active');
-            document.getElementById('screen' + screenNum).classList.add('active');
-            currentScreen = screenNum;
-            updateSteps(screenNum);
-        }
+    function printList(){
+      const html=document.getElementById('resultsScreen').innerHTML;
+      const orig=document.body.innerHTML;
+      document.body.innerHTML='<style>body{font-family:Arial,sans-serif;padding:20px;color:#333}.btn{display:none}.card{box-shadow:none;border:1px solid #ddd}</style>'+html;
+      window.print(); document.body.innerHTML=orig; location.reload();
+    }
 
-        function validateAndGoToScreen(screenNum) {
-            var hasSelection = false;
-            var checkboxes = document.querySelectorAll('#screen3 input[type="checkbox"]');
-            for (var i = 0; i < checkboxes.length; i++) {
-                if (checkboxes[i].checked) { hasSelection = true; break; }
-            }
-            if (!hasSelection) { alert('Please select at least one food category!'); return; }
-            goToScreen(screenNum);
-        }
-
-        // ---------- Prewritten, Diet-Safe Plans ----------
-        // One plan = one list. No mixing to avoid diet mistakes.
-        const PLANS = {
-            "high-protein": [
-                { name: "Chicken breast", note: "2 lbs", price: 12.00 },
-                { name: "Eggs", note: "1 dozen", price: 3.00 },
-                { name: "Greek yogurt", note: "32 oz", price: 5.00 },
-                { name: "Canned tuna", note: "4 cans", price: 4.00 },
-                { name: "Black beans", note: "2 cans", price: 2.00 }
-            ],
-            "low-carb": [
-                { name: "Ground turkey", note: "2 lbs", price: 10.00 },
-                { name: "Eggs", note: "1 dozen", price: 3.00 },
-                { name: "Zucchini", note: "4", price: 4.00 },
-                { name: "Cauliflower rice", note: "2 frozen bags", price: 6.00 },
-                { name: "Cheese", note: "8 oz", price: 4.00 }
-            ],
-            "vegetarian": [
-                { name: "Lentils", note: "2 lbs", price: 4.00 },
-                { name: "Chickpeas", note: "2 cans", price: 3.00 },
-                { name: "Spinach", note: "1 bag", price: 3.00 },
-                { name: "Tofu", note: "2 blocks", price: 6.00 },
-                { name: "Whole-wheat pasta", note: "1 lb", price: 3.00 }
-            ],
-            "vegan": [
-                { name: "Tofu", note: "2 blocks", price: 6.00 },
-                { name: "Tempeh", note: "1 pack", price: 4.00 },
-                { name: "Lentils", note: "2 lbs", price: 4.00 },
-                { name: "Chickpeas", note: "2 cans", price: 3.00 },
-                { name: "Frozen mixed veggies", note: "2 bags", price: 4.00 }
-            ]
-        };
-
-        function pickPlanKey() {
-            const isVegan = document.getElementById('vegan').checked;
-            const isVegetarian = document.getElementById('vegetarian').checked;
-            const isKeto = document.getElementById('keto').checked;
-            const isHighProtein = document.getElementById('high_protein').checked;
-            // Precedence: Vegan > Vegetarian > Low-Carb (Keto) > High-Protein > default High-Protein
-            if (isVegan) return "vegan";
-            if (isVegetarian) return "vegetarian";
-            if (isKeto) return "low-carb";
-            if (isHighProtein) return "high-protein";
-            return "high-protein";
-        }
-
-        function formatCurrency(n) { return "$" + n.toFixed(2); }
-
-        function planToPlainText(title, items, total) {
-            let lines = [];
-            lines.push(title);
-            for (const it of items) {
-                lines.push(`- ${it.name}${it.note ? " ("+it.note+")" : ""} – ${formatCurrency(it.price)}`);
-            }
-            lines.push(`Estimated total: ${formatCurrency(total)}`);
-            return lines.join("\n");
-        }
-
-        // ---------- Generate & Render ----------
-        function generateList() {
-    // MVP: no store selection needed. Hide whatever screen is active.
-    var active = document.querySelector('.screen.active');
-    if (active) active.classList.remove('active');
-
-    // Show loading, then results
-    document.getElementById('loadingScreen').classList.add('active');
-    setTimeout(function () {
-        showResults();
-    }, 1200);
-}
-            // Switch to results screen
-            document.getElementById('loadingScreen').classList.remove('active');
-            document.getElementById('resultsScreen').classList.add('active');
-
-            // Determine which single plan to use based on dietary
-            lastPlanKey = pickPlanKey();
-            const items = PLANS[lastPlanKey];
-            const titleMap = {
-                "high-protein": "High-Protein List",
-                "low-carb": "Low-Carb List",
-                "vegetarian": "Vegetarian List",
-                "vegan": "Vegan List"
-            };
-            const planTitle = titleMap[lastPlanKey];
-
-            // Compute totals
-            let total = 0;
-            items.forEach(i => total += i.price);
-            const totalItems = items.length;
-
-            // Render list (one card)
-            const listHTML = `
-                <div class="list-item">
-                    <div class="item-header">
-                        <span class="item-title">${planTitle}</span>
-                        <span class="quantity-badge">Items: ${totalItems}</span>
-                    </div>
-                    ${items.map(i => `
-                        <div class="product-name">${i.name}</div>
-                        <div class="product-details">
-                            ${i.note ? `<div>${i.note}</div>` : ``}
-                            <div class="price">${formatCurrency(i.price)}</div>
-                        </div>
-                    `).join('')}
-                    <div class="product-details" style="margin-top:8px;color:#777;">
-                        *Prices are rough estimates. Swap items freely.
-                    </div>
-                </div>
-            `;
-            document.getElementById('shoppingList').innerHTML = listHTML;
-
-            // Summary
-            const priorities = [];
-            if (document.getElementById('budget').checked) priorities.push('Budget');
-            if (document.getElementById('health').checked) priorities.push('Health');
-            if (document.getElementById('calories').checked) priorities.push('Low-Calorie');
-
-            const householdSize = document.getElementById('householdSize').value;
-            const duration = document.getElementById('duration').value;
-
-            document.getElementById('summary').innerHTML =
-                '<h3 style="margin-bottom: 20px; text-align: center;">Shopping Summary</h3>' +
-                '<div class="summary-row"><span>Diet Plan:</span><span>' + planTitle + '</span></div>' +
-                '<div class="summary-row"><span>Priorities:</span><span>' + (priorities.length ? priorities.join(', ') : 'None selected') + '</span></div>' +
-                '<div class="summary-row"><span>Total Items:</span><span>' + totalItems + '</span></div>' +
-                '<div class="summary-row"><span>Household:</span><span>' + householdSize + ' people</span></div>' +
-                '<div class="summary-row"><span>Duration:</span><span>' + duration + ' week(s)</span></div>' +
-                '<div class="summary-row"><span>Estimated Total:</span><span>' + formatCurrency(total) + '</span></div>';
-
-            // Build plain text for copy/email/save
-            generatedText = planToPlainText(planTitle, items, total) +
-                `\n\nHousehold: ${householdSize} people\nDuration: ${duration} week(s)\n` +
-                `Priorities: ${priorities.length ? priorities.join(', ') : 'None selected'}`;
-        }
-
-        // ---------- Utilities: copy / email / print / save ----------
-        function startOver() {
-            currentScreen = 1;
-            selectedStore = null;
-            generatedText = "";
-            lastPlanKey = "";
-
-            var checkboxes = document.querySelectorAll('input[type="checkbox"]');
-            for (var i = 0; i < checkboxes.length; i++) {
-                checkboxes[i].checked = false;
-                var parent = checkboxes[i].closest('.checkbox-item');
-                if (parent) parent.classList.remove('selected');
-            }
-
-            var radios = document.querySelectorAll('input[type="radio"]');
-            for (var i = 0; i < radios.length; i++) {
-                radios[i].checked = false;
-                var parentR = radios[i].closest('.radio-item');
-                if (parentR) parentR.classList.remove('selected');
-            }
-
-            document.getElementById('householdSize').value = '2';
-            document.getElementById('duration').value = '1';
-            document.getElementById('budget').value = '';
-            document.getElementById('zipcode').value = '';
-            document.getElementById('generateBtn').style.display = 'none';
-
-            var screens = document.querySelectorAll('.screen');
-            for (var i = 0; i < screens.length; i++) screens[i].classList.remove('active');
-            document.getElementById('screen1').classList.add('active');
-            updateSteps(1);
-        }
-
-        function copyList() {
-            if (!generatedText) return;
-            try {
-                if (navigator.clipboard && navigator.clipboard.writeText) {
-                    navigator.clipboard.writeText(generatedText);
-                } else {
-                    const ta = document.createElement('textarea');
-                    ta.value = generatedText; document.body.appendChild(ta); ta.select();
-                    document.execCommand('copy'); document.body.removeChild(ta);
-                }
-                alert('List copied to clipboard!');
-            } catch (e) {
-                alert('Copy failed. You can still use Print or Save.');
-            }
-        }
-
-        function emailList() {
-            if (!generatedText) return;
-            const subject = encodeURIComponent('Your Happy Grocer List');
-            const body = encodeURIComponent(generatedText + '\n\nGenerated at https://happygrocerco.github.io/happy-grocer/');
-            window.location.href = `mailto:?subject=${subject}&body=${body}`;
-        }
-
-        function printList() {
-            var printContent = document.getElementById('resultsScreen').innerHTML;
-            var originalContent = document.body.innerHTML;
-            document.body.innerHTML = '<style>body{font-family:Arial,sans-serif;padding:20px;color:#333;} .btn{display:none;} .card{box-shadow:none;border:1px solid #ddd;}</style>' + printContent;
-            window.print();
-            document.body.innerHTML = originalContent;
-            location.reload();
-        }
-
-        function saveList() {
-            if (!generatedText) return;
-            var blob = new Blob([generatedText], { type: 'text/plain' });
-            var url = window.URL.createObjectURL(blob);
-            var a = document.createElement('a');
-            a.href = url;
-            a.download = 'happy-grocer-shopping-list.txt';
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            window.URL.revokeObjectURL(url);
-            alert('Shopping list saved successfully!');
-        }
-    </script>
+    function saveList(){
+      if(!generatedText) return;
+      const blob=new Blob([generatedText],{type:'text/plain'});
+      const url=URL.createObjectURL(blob);
+      const a=document.createElement('a'); a.href=url; a.download='happy-grocer-shopping-list.txt';
+      document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
+      alert('Shopping list saved successfully!');
+    }
+  </script>
 </body>
 </html>
-
