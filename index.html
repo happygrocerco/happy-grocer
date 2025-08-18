@@ -6,11 +6,7 @@
     <title>Happy Grocer - Smart Shopping Made Easy</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -19,142 +15,42 @@
             color: #6b46c1;
         }
 
-        .container {
-            max-width: 400px;
-            margin: 0 auto;
-            padding: 20px;
-            min-height: 100vh;
-        }
+        .container { max-width: 400px; margin: 0 auto; padding: 20px; min-height: 100vh; }
 
-        .header {
-            text-align: center;
-            margin-bottom: 30px;
-            color: #6b46c1;
-        }
+        .header { text-align: center; margin-bottom: 30px; color: #6b46c1; }
 
         .logo {
-            font-size: 4rem;
-            margin-bottom: 15px;
-            background: #7c3aed;
-            border-radius: 20px;
-            width: 120px;
-            height: 120px;
-            margin: 0 auto 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            font-size: 4rem; margin-bottom: 15px; background: #7c3aed; border-radius: 20px;
+            width: 120px; height: 120px; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center;
+            position: relative; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
         }
 
-        .cart-logo {
-            width: 80px;
-            height: 80px;
-            position: relative;
-        }
-
-        .cart-body {
-            width: 50px;
-            height: 35px;
-            background: #fbbf24;
-            border: 4px solid #4c1d95;
-            border-radius: 8px;
-            position: absolute;
-            top: 25px;
-            left: 20px;
-        }
-
-        .cart-handle {
-            width: 20px;
-            height: 25px;
-            border: 4px solid #fbbf24;
-            border-right: none;
-            border-radius: 8px 0 0 8px;
-            position: absolute;
-            top: 25px;
-            left: 0;
-        }
-
-        .cart-wheel1, .cart-wheel2 {
-            width: 8px;
-            height: 8px;
-            background: #fbbf24;
-            border: 2px solid #4c1d95;
-            border-radius: 50%;
-            position: absolute;
-            bottom: 8px;
-        }
-
-        .cart-wheel1 {
-            left: 25px;
-        }
-
-        .cart-wheel2 {
-            right: 25px;
-        }
+        .cart-logo { width: 80px; height: 80px; position: relative; }
+        .cart-body { width: 50px; height: 35px; background: #fbbf24; border: 4px solid #4c1d95; border-radius: 8px; position: absolute; top: 25px; left: 20px; }
+        .cart-handle { width: 20px; height: 25px; border: 4px solid #fbbf24; border-right: none; border-radius: 8px 0 0 8px; position: absolute; top: 25px; left: 0; }
+        .cart-wheel1, .cart-wheel2 { width: 8px; height: 8px; background: #fbbf24; border: 2px solid #4c1d95; border-radius: 50%; position: absolute; bottom: 8px; }
+        .cart-wheel1 { left: 25px; } .cart-wheel2 { right: 25px; }
 
         .smiley-face {
-            position: absolute;
-            top: 5px;
-            left: 25px;
-            width: 30px;
-            height: 30px;
-            background: #fbbf24;
-            border: 3px solid #4c1d95;
-            border-radius: 50%;
+            position: absolute; top: 5px; left: 25px; width: 30px; height: 30px; background: #fbbf24;
+            border: 3px solid #4c1d95; border-radius: 50%;
         }
-
-        .smiley-eyes {
-            position: absolute;
-            top: 8px;
-            left: 8px;
+        .smiley-eyes { position: absolute; top: 8px; left: 8px; }
+        .smiley-eyes::before, .smiley-eyes::after {
+            content: ''; width: 4px; height: 6px; background: #4c1d95; border-radius: 50%; position: absolute;
         }
-
-        .smiley-eyes::before,
-        .smiley-eyes::after {
-            content: '';
-            width: 4px;
-            height: 6px;
-            background: #4c1d95;
-            border-radius: 50%;
-            position: absolute;
-        }
-
-        .smiley-eyes::before {
-            left: 0;
-        }
-
-        .smiley-eyes::after {
-            right: 0;
-            left: 10px;
-        }
-
+        .smiley-eyes::before { left: 0; }
+        .smiley-eyes::after { right: 0; left: 10px; }
         .smiley-mouth {
-            position: absolute;
-            bottom: 6px;
-            left: 6px;
-            width: 16px;
-            height: 8px;
-            border: 2px solid #4c1d95;
-            border-top: none;
-            border-radius: 0 0 16px 16px;
+            position: absolute; bottom: 6px; left: 6px; width: 16px; height: 8px; border: 2px solid #4c1d95;
+            border-top: none; border-radius: 0 0 16px 16px;
         }
 
         .app-title {
-            font-size: 2.8rem;
-            font-weight: 800;
-            margin-bottom: 5px;
-            letter-spacing: 1px;
-            color: #6b46c1;
+            font-size: 2.8rem; font-weight: 800; margin-bottom: 5px; letter-spacing: 1px; color: #6b46c1;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
-
-        .subtitle {
-            font-size: 1.1rem;
-            opacity: 0.9;
-            font-weight: 500;
-            color: #7c3aed;
-        }
+        .subtitle { font-size: 1.1rem; opacity: 0.9; font-weight: 500; color: #7c3aed; }
 
         .card {
             background: rgba(255, 255, 255, 0.95);
@@ -162,395 +58,122 @@
             border-radius: 25px;
             padding: 30px;
             margin-bottom: 25px;
-            box-shadow: 
+            box-shadow:
                 0 20px 40px rgba(139, 92, 246, 0.3),
                 0 10px 20px rgba(251, 191, 36, 0.2),
                 inset 0 1px 0 rgba(255, 255, 255, 0.6);
             border: 1px solid rgba(255, 255, 255, 0.3);
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
-
         .card:hover {
             transform: translateY(-8px) scale(1.02);
-            box-shadow: 
+            box-shadow:
                 0 30px 60px rgba(139, 92, 246, 0.4),
                 0 15px 30px rgba(251, 191, 36, 0.3),
                 inset 0 1px 0 rgba(255, 255, 255, 0.8);
         }
 
-        .step-indicator {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 25px;
-            gap: 10px;
-        }
+        .step-indicator { display: flex; justify-content: center; margin-bottom: 25px; gap: 10px; }
+        .step { width: 12px; height: 12px; border-radius: 50%; background: #e0e0e0; transition: all 0.3s ease; }
+        .step.active { background: linear-gradient(135deg, #8b5cf6, #fde047); transform: scale(1.4); box-shadow: 0 4px 15px rgba(139, 92, 246, 0.6); }
+        .step.completed { background: linear-gradient(135deg, #10b981, #fbbf24); transform: scale(1.2); }
 
-        .step {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: #e0e0e0;
-            transition: all 0.3s ease;
-        }
-
-        .step.active {
-            background: linear-gradient(135deg, #8b5cf6, #fde047);
-            transform: scale(1.4);
-            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.6);
-        }
-
-        .step.completed {
-            background: linear-gradient(135deg, #10b981, #fbbf24);
-            transform: scale(1.2);
-        }
-
-        .screen {
-            display: none;
-        }
-
-        .screen.active {
-            display: block;
-        }
+        .screen { display: none; }
+        .screen.active { display: block; }
 
         h2 {
-            color: #6b46c1;
-            margin-bottom: 25px;
-            font-size: 2rem;
-            text-align: center;
-            font-weight: 700;
+            color: #6b46c1; margin-bottom: 25px; font-size: 2rem; text-align: center; font-weight: 700;
         }
 
         .emoji-header {
-            font-size: 4rem;
-            text-align: center;
-            margin-bottom: 20px;
-            filter: drop-shadow(3px 3px 6px rgba(0, 0, 0, 0.3));
-            animation: bounce 2s ease-in-out infinite;
+            font-size: 4rem; text-align: center; margin-bottom: 20px;
+            filter: drop-shadow(3px 3px 6px rgba(0, 0, 0, 0.3)); animation: bounce 2s ease-in-out infinite;
         }
+        @keyframes bounce { 0%, 20%, 50%, 80%, 100% { transform: translateY(0); } 40% { transform: translateY(-10px); } 60% { transform: translateY(-5px); } }
 
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-            40% { transform: translateY(-10px); }
-            60% { transform: translateY(-5px); }
-        }
-
-        .option-group {
-            margin-bottom: 25px;
-        }
-
-        .checkbox-group {
-            display: grid;
-            gap: 12px;
-        }
+        .option-group { margin-bottom: 25px; }
+        .checkbox-group { display: grid; gap: 12px; }
 
         .checkbox-item {
-            display: flex;
-            align-items: center;
-            padding: 20px;
-            border: 2px solid #6b46c1;
-            border-radius: 18px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            background: rgba(255, 255, 255, 0.95);
-            position: relative;
-            overflow: hidden;
+            display: flex; align-items: center; padding: 20px; border: 2px solid #6b46c1; border-radius: 18px; cursor: pointer;
+            transition: all 0.3s ease; background: rgba(255, 255, 255, 0.95); position: relative; overflow: hidden;
         }
-
-        .checkbox-item:hover {
-            border-color: #7c3aed;
-            background: rgba(255, 255, 255, 1);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(107, 70, 193, 0.3);
-        }
-
+        .checkbox-item:hover { border-color: #7c3aed; background: rgba(255, 255, 255, 1); transform: translateY(-3px); box-shadow: 0 10px 25px rgba(107, 70, 193, 0.3); }
         .checkbox-item.selected {
-            border-color: #6b46c1;
-            background: #7c3aed;
-            color: white;
-            transform: translateY(-5px) scale(1.02);
+            border-color: #6b46c1; background: #7c3aed; color: white; transform: translateY(-5px) scale(1.02);
             box-shadow: 0 15px 35px rgba(124, 58, 237, 0.4);
         }
+        .checkbox-item input { margin-right: 12px; transform: scale(1.2); }
 
-        .checkbox-item input {
-            margin-right: 12px;
-            transform: scale(1.2);
-        }
+        .option-emoji { font-size: 2rem; margin-right: 15px; filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3)); animation: float 3s ease-in-out infinite; }
+        @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-5px); } }
 
-        .option-emoji {
-            font-size: 2rem;
-            margin-right: 15px;
-            filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3));
-            animation: float 3s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-5px); }
-        }
-
-        .input-group {
-            margin-bottom: 20px;
-        }
-
-        .input-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: #555;
-        }
+        .input-group { margin-bottom: 20px; }
+        .input-group label { display: block; margin-bottom: 8px; font-weight: 600; color: #555; }
 
         input[type="text"], input[type="number"], select {
-            width: 100%;
-            padding: 18px 20px;
-            border: 2px solid rgba(251, 191, 36, 0.3);
-            border-radius: 15px;
-            font-size: 1.1rem;
+            width: 100%; padding: 18px 20px; border: 2px solid rgba(251, 191, 36, 0.3); border-radius: 15px; font-size: 1.1rem;
             background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(251, 191, 36, 0.1));
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-            font-family: 'Inter', sans-serif;
-            font-weight: 500;
+            backdrop-filter: blur(10px); transition: all 0.3s ease; font-family: 'Inter', sans-serif; font-weight: 500;
         }
-
         input:focus, select:focus {
-            outline: none;
-            border-color: #fbbf24;
-            background: rgba(255, 255, 255, 0.95);
-            box-shadow: 
-                0 0 0 3px rgba(251, 191, 36, 0.3),
-                0 8px 25px rgba(124, 58, 237, 0.2);
+            outline: none; border-color: #fbbf24; background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.3), 0 8px 25px rgba(124, 58, 237, 0.2);
             transform: translateY(-2px);
         }
 
         .btn {
-            width: 100%;
-            padding: 20px;
-            border: none;
-            border-radius: 18px;
-            font-size: 1.2rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            margin-top: 25px;
-            background: #7c3aed;
-            color: white;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            position: relative;
-            overflow: hidden;
+            width: 100%; padding: 20px; border: none; border-radius: 18px; font-size: 1.2rem; font-weight: 700; cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); margin-top: 25px; background: #7c3aed; color: white;
+            text-transform: uppercase; letter-spacing: 1px; position: relative; overflow: hidden;
             box-shadow: 0 10px 25px rgba(124, 58, 237, 0.4);
         }
+        .btn:hover { transform: translateY(-4px) scale(1.02); background: #6b46c1; box-shadow: 0 20px 40px rgba(124, 58, 237, 0.5); }
+        .btn:active { transform: translateY(-2px) scale(0.98); }
 
-        .btn:hover {
-            transform: translateY(-4px) scale(1.02);
-            background: #6b46c1;
-            box-shadow: 0 20px 40px rgba(124, 58, 237, 0.5);
-        }
-
-        .btn:active {
-            transform: translateY(-2px) scale(0.98);
-        }
-
-        .progress-text {
-            text-align: center;
-            color: #6b46c1;
-            margin-bottom: 20px;
-            font-weight: 600;
-        }
+        .progress-text { text-align: center; color: #6b46c1; margin-bottom: 20px; font-weight: 600; }
 
         .radio-item {
-            display: flex;
-            align-items: center;
-            padding: 18px;
-            border: 2px solid #6b46c1;
-            border-radius: 16px;
-            cursor: pointer;
-            margin-bottom: 15px;
-            background: rgba(255, 255, 255, 0.9);
-            transition: all 0.3s ease;
+            display: flex; align-items: center; padding: 18px; border: 2px solid #6b46c1; border-radius: 16px; cursor: pointer;
+            margin-bottom: 15px; background: rgba(255, 255, 255, 0.9); transition: all 0.3s ease;
         }
+        .radio-item:hover { border-color: #7c3aed; background: rgba(255, 255, 255, 1); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(107, 70, 193, 0.3); }
+        .radio-item.selected { border-color: #6b46c1; background: #7c3aed; color: white; transform: translateY(-3px); box-shadow: 0 12px 30px rgba(124, 58, 237, 0.4); }
 
-        .radio-item:hover {
-            border-color: #7c3aed;
-            background: rgba(255, 255, 255, 1);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(107, 70, 193, 0.3);
-        }
-
-        .radio-item.selected {
-            border-color: #6b46c1;
-            background: #7c3aed;
-            color: white;
-            transform: translateY(-3px);
-            box-shadow: 0 12px 30px rgba(124, 58, 237, 0.4);
-        }
-
-        .loading {
-            text-align: center;
-            padding: 40px;
-        }
-
+        .loading { text-align: center; padding: 40px; }
         .spinner {
-            width: 60px;
-            height: 60px;
-            border: 5px solid rgba(253, 224, 71, 0.3);
-            border-top: 5px solid #8b5cf6;
-            border-right: 5px solid #fde047;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 20px;
-            filter: drop-shadow(0 4px 8px rgba(139, 92, 246, 0.3));
+            width: 60px; height: 60px; border: 5px solid rgba(253, 224, 71, 0.3); border-top: 5px solid #8b5cf6; border-right: 5px solid #fde047;
+            border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 20px; filter: drop-shadow(0 4px 8px rgba(139, 92, 246, 0.3));
         }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
         .list-item {
             background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(253, 224, 71, 0.1));
-            backdrop-filter: blur(15px);
-            border-radius: 18px;
-            padding: 25px;
-            margin-bottom: 20px;
-            border-left: 5px solid #8b5cf6;
-            border: 1px solid rgba(139, 92, 246, 0.2);
-            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.2);
+            backdrop-filter: blur(15px); border-radius: 18px; padding: 25px; margin-bottom: 20px;
+            border-left: 5px solid #8b5cf6; border: 1px solid rgba(139, 92, 246, 0.2); box-shadow: 0 8px 25px rgba(139, 92, 246, 0.2);
             transition: all 0.3s ease;
         }
+        .list-item:hover { transform: translateY(-3px); box-shadow: 0 15px 35px rgba(139, 92, 246, 0.3); }
 
-        .list-item:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 35px rgba(139, 92, 246, 0.3);
-        }
+        .item-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .item-title { font-weight: bold; color: #333; font-size: 1.2rem; }
+        .quantity-badge { background: #7c3aed; color: white; padding: 6px 16px; border-radius: 25px; font-size: 0.9rem; font-weight: 600; box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3); }
 
-        .item-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .item-title {
-            font-weight: bold;
-            color: #333;
-            font-size: 1.2rem;
-        }
-
-        .quantity-badge {
-            background: #7c3aed;
-            color: white;
-            padding: 6px 16px;
-            border-radius: 25px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
-        }
-
-        .product-name {
-            font-weight: 600;
-            color: #444;
-            margin-bottom: 8px;
-            font-size: 1.1rem;
-        }
-
-        .product-details {
-            color: #666;
-            line-height: 1.6;
-        }
-
-        .price {
-            font-weight: 700;
-            color: #7c3aed;
-            font-size: 1.1rem;
-        }
-
-        .location {
-            color: #888;
-            font-style: italic;
-            margin-top: 5px;
-        }
-
-        .nutrition {
-            background: rgba(139, 92, 246, 0.1);
-            padding: 10px;
-            border-radius: 8px;
-            margin-top: 10px;
-            font-size: 0.9rem;
-        }
-
-        .sale-badge {
-            background: #7c3aed;
-            color: white;
-            padding: 4px 12px;
-            border-radius: 15px;
-            font-size: 0.8rem;
-            margin-left: 10px;
-            font-weight: 700;
-            text-transform: uppercase;
-            box-shadow: 0 3px 10px rgba(124, 58, 237, 0.4);
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-
-        .alternatives {
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 1px solid #e0e0e0;
-        }
-
-        .alternatives-title {
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: #666;
-            margin-bottom: 10px;
-        }
-
-        .alternative-item {
-            background: white;
-            padding: 12px;
-            border-radius: 8px;
-            margin-bottom: 8px;
-            border: 1px solid #e0e0e0;
-            font-size: 0.9rem;
-        }
-
-        .alternative-item strong {
-            color: #333;
-        }
+        .product-name { font-weight: 600; color: #444; margin-bottom: 8px; font-size: 1.05rem; }
+        .product-details { color: #666; line-height: 1.6; }
+        .price { font-weight: 700; color: #7c3aed; font-size: 1.05rem; }
 
         .summary-card {
-            background: #7c3aed;
-            color: white;
-            border-radius: 20px;
-            padding: 30px;
-            margin-top: 25px;
-            box-shadow: 0 20px 40px rgba(124, 58, 237, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: #7c3aed; color: white; border-radius: 20px; padding: 30px; margin-top: 25px;
+            box-shadow: 0 20px 40px rgba(124, 58, 237, 0.4); border: 1px solid rgba(255, 255, 255, 0.2);
         }
+        .summary-row { display: flex; justify-content: space-between; margin-bottom: 12px; align-items: center; }
+        .summary-row:last-child { margin-bottom: 0; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.3); font-weight: bold; font-size: 1.2rem; }
 
-        .summary-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 12px;
-            align-items: center;
-        }
-
-        .summary-row:last-child {
-            margin-bottom: 0;
-            padding-top: 15px;
-            border-top: 1px solid rgba(255,255,255,0.3);
-            font-weight: bold;
-            font-size: 1.2rem;
-        }
-
-        #generateBtn {
-            display: none;
-        }
+        #generateBtn { display: none; }
+        .util-row { display:flex; gap: 12px; margin-top: 12px; }
+        .util { flex:1; background:#fefefe; color:#6b46c1; border:2px solid #6b46c1; }
+        .util:hover { background:#6b46c1; color:#fff; }
     </style>
 </head>
 <body>
@@ -585,28 +208,20 @@
         <!-- Screen 1: Priorities -->
         <div class="screen active" id="screen1">
             <div class="card">
-                <div class="emoji-header">
-                    <span style="color: #8b5cf6;">🎯</span>
-                </div>
+                <div class="emoji-header"><span style="color: #8b5cf6;">🎯</span></div>
                 <h2>What's Your Shopping Goal?</h2>
                 <p style="text-align: center; margin-bottom: 25px; color: #666;">Choose your priorities (you can select multiple)</p>
-                
+
                 <div class="option-group">
                     <div class="checkbox-group">
                         <div class="checkbox-item" onclick="selectOption(this, 'budget')">
-                            <input type="checkbox" id="budget">
-                            <span class="option-emoji">💰</span>
-                            <span>Budget-friendly (cheapest options)</span>
+                            <input type="checkbox" id="budget"><span class="option-emoji">💰</span><span>Budget-friendly (cheapest options)</span>
                         </div>
                         <div class="checkbox-item" onclick="selectOption(this, 'health')">
-                            <input type="checkbox" id="health">
-                            <span class="option-emoji">🥗</span>
-                            <span>Health-focused (nutritious options)</span>
+                            <input type="checkbox" id="health"><span class="option-emoji">🥗</span><span>Health-focused (nutritious options)</span>
                         </div>
                         <div class="checkbox-item" onclick="selectOption(this, 'calories')">
-                            <input type="checkbox" id="calories">
-                            <span class="option-emoji">🔥</span>
-                            <span>Low-calorie (fewest calories)</span>
+                            <input type="checkbox" id="calories"><span class="option-emoji">🔥</span><span>Low-calorie (fewest calories)</span>
                         </div>
                     </div>
                 </div>
@@ -618,38 +233,26 @@
         <!-- Screen 2: Dietary -->
         <div class="screen" id="screen2">
             <div class="card">
-                <div class="emoji-header">
-                    <span style="color: #fbbf24;">🥗</span>
-                </div>
+                <div class="emoji-header"><span style="color: #fbbf24;">🥗</span></div>
                 <h2>Dietary Preferences</h2>
                 <p style="text-align: center; margin-bottom: 25px; color: #666;">Select any dietary restrictions</p>
-                
+
                 <div class="option-group">
                     <div class="checkbox-group">
                         <div class="checkbox-item" onclick="selectOption(this, 'vegetarian')">
-                            <input type="checkbox" id="vegetarian">
-                            <span class="option-emoji">🌱</span>
-                            <span>Vegetarian</span>
+                            <input type="checkbox" id="vegetarian"><span class="option-emoji">🌱</span><span>Vegetarian</span>
                         </div>
                         <div class="checkbox-item" onclick="selectOption(this, 'vegan')">
-                            <input type="checkbox" id="vegan">
-                            <span class="option-emoji">🌿</span>
-                            <span>Vegan</span>
+                            <input type="checkbox" id="vegan"><span class="option-emoji">🌿</span><span>Vegan</span>
                         </div>
                         <div class="checkbox-item" onclick="selectOption(this, 'keto')">
-                            <input type="checkbox" id="keto">
-                            <span class="option-emoji">🥓</span>
-                            <span>Keto</span>
+                            <input type="checkbox" id="keto"><span class="option-emoji">🥓</span><span>Keto</span>
                         </div>
                         <div class="checkbox-item" onclick="selectOption(this, 'gluten_free')">
-                            <input type="checkbox" id="gluten_free">
-                            <span class="option-emoji">🌾</span>
-                            <span>Gluten-Free</span>
+                            <input type="checkbox" id="gluten_free"><span class="option-emoji">🌾</span><span>Gluten-Free</span>
                         </div>
                         <div class="checkbox-item" onclick="selectOption(this, 'high_protein')">
-                            <input type="checkbox" id="high_protein">
-                            <span class="option-emoji">💪</span>
-                            <span>High Protein</span>
+                            <input type="checkbox" id="high_protein"><span class="option-emoji">💪</span><span>High Protein</span>
                         </div>
                     </div>
                 </div>
@@ -661,43 +264,29 @@
         <!-- Screen 3: Food Categories -->
         <div class="screen" id="screen3">
             <div class="card">
-                <div class="emoji-header">
-                    <span style="color: #8b5cf6;">🍽️</span>
-                </div>
+                <div class="emoji-header"><span style="color: #8b5cf6;">🍽️</span></div>
                 <h2>What Do You Need?</h2>
                 <p style="text-align: center; margin-bottom: 25px; color: #666;">Select food categories</p>
-                
+
                 <div class="option-group">
                     <div class="checkbox-group">
                         <div class="checkbox-item" onclick="selectOption(this, 'proteins')">
-                            <input type="checkbox" id="proteins">
-                            <span class="option-emoji">🍗</span>
-                            <span>Proteins</span>
+                            <input type="checkbox" id="proteins"><span class="option-emoji">🍗</span><span>Proteins</span>
                         </div>
                         <div class="checkbox-item" onclick="selectOption(this, 'dairy')">
-                            <input type="checkbox" id="dairy">
-                            <span class="option-emoji">🥛</span>
-                            <span>Dairy</span>
+                            <input type="checkbox" id="dairy"><span class="option-emoji">🥛</span><span>Dairy</span>
                         </div>
                         <div class="checkbox-item" onclick="selectOption(this, 'grains')">
-                            <input type="checkbox" id="grains">
-                            <span class="option-emoji">🍞</span>
-                            <span>Grains</span>
+                            <input type="checkbox" id="grains"><span class="option-emoji">🍞</span><span>Grains</span>
                         </div>
                         <div class="checkbox-item" onclick="selectOption(this, 'fruits')">
-                            <input type="checkbox" id="fruits">
-                            <span class="option-emoji">🍎</span>
-                            <span>Fruits</span>
+                            <input type="checkbox" id="fruits"><span class="option-emoji">🍎</span><span>Fruits</span>
                         </div>
                         <div class="checkbox-item" onclick="selectOption(this, 'vegetables')">
-                            <input type="checkbox" id="vegetables">
-                            <span class="option-emoji">🥬</span>
-                            <span>Vegetables</span>
+                            <input type="checkbox" id="vegetables"><span class="option-emoji">🥬</span><span>Vegetables</span>
                         </div>
                         <div class="checkbox-item" onclick="selectOption(this, 'snacks')">
-                            <input type="checkbox" id="snacks">
-                            <span class="option-emoji">🥜</span>
-                            <span>Snacks</span>
+                            <input type="checkbox" id="snacks"><span class="option-emoji">🥜</span><span>Snacks</span>
                         </div>
                     </div>
                 </div>
@@ -709,11 +298,9 @@
         <!-- Screen 4: Household -->
         <div class="screen" id="screen4">
             <div class="card">
-                <div class="emoji-header">
-                    <span style="color: #fbbf24;">👨‍👩‍👧‍👦</span>
-                </div>
+                <div class="emoji-header"><span style="color: #fbbf24;">👨‍👩‍👧‍👦</span></div>
                 <h2>Household Details</h2>
-                
+
                 <div class="input-group">
                     <label>👥 How many people?</label>
                     <input type="number" id="householdSize" value="2" min="1">
@@ -744,11 +331,9 @@
         <!-- Screen 5: Stores -->
         <div class="screen" id="screen5">
             <div class="card">
-                <div class="emoji-header">
-                    <span style="color: #8b5cf6;">🛍️</span>
-                </div>
+                <div class="emoji-header"><span style="color: #8b5cf6;">🛍️</span></div>
                 <h2>Choose Your Store</h2>
-                
+
                 <div id="storesList">
                     <div class="radio-item" onclick="selectStore(this, '1')">
                         <input type="radio" name="store" value="1">
@@ -783,8 +368,8 @@
                 <div class="loading">
                     <div class="spinner"></div>
                     <h2>Creating Your Smart Shopping List</h2>
-                    <p>Finding the best products...</p>
-                    <p>Optimizing for your priorities...</p>
+                    <p>Finding the best items...</p>
+                    <p>Optimizing for your choices...</p>
                 </div>
             </div>
         </div>
@@ -792,44 +377,41 @@
         <!-- Results Screen -->
         <div class="screen" id="resultsScreen">
             <div class="card">
-                <div class="emoji-header">
-                    <span style="color: #fbbf24;">✨</span>
-                </div>
+                <div class="emoji-header"><span style="color: #fbbf24;">✨</span></div>
                 <h2>Your Smart Shopping List</h2>
-                
-                <div id="shoppingList">
-                    <!-- Results will go here -->
+
+                <div id="shoppingList"><!-- Results will go here --></div>
+
+                <div class="summary-card" id="summary"><!-- Summary will go here --></div>
+
+                <div class="util-row">
+                    <button class="btn util" onclick="copyList()">Copy List</button>
+                    <button class="btn util" onclick="emailList()">Email Me This</button>
                 </div>
 
-                <div class="summary-card" id="summary">
-                    <!-- Summary will go here -->
-                </div>
-
-                <button class="btn" onclick="startOver()">Create Another List</button>
-                <div style="display: flex; gap: 15px; margin-top: 15px;">
+                <div class="util-row">
                     <button class="btn" onclick="printList()" style="flex: 1; background: #7c3aed;">Print List</button>
                     <button class="btn" onclick="saveList()" style="flex: 1; background: #7c3aed;">Save List</button>
                 </div>
+
+                <button class="btn" onclick="startOver()" style="margin-top:16px;">Create Another List</button>
             </div>
         </div>
     </div>
 
     <script>
+        // ---------- App State ----------
         var currentScreen = 1;
-        var selectedPriorities = [];
-        var selectedDietary = [];
-        var selectedCategories = [];
         var selectedStore = null;
+        var generatedText = ""; // plain text version for copy/email/save
+        var lastPlanKey = "";   // which prewritten plan used
 
+        // ---------- Helpers for UI flow ----------
         function selectOption(element, value) {
             var checkbox = element.querySelector('input');
             checkbox.checked = !checkbox.checked;
-            
-            if (checkbox.checked) {
-                element.classList.add('selected');
-            } else {
-                element.classList.remove('selected');
-            }
+            if (checkbox.checked) { element.classList.add('selected'); }
+            else { element.classList.remove('selected'); }
         }
 
         function selectStore(element, storeId) {
@@ -838,24 +420,18 @@
                 allStores[i].classList.remove('selected');
                 allStores[i].querySelector('input').checked = false;
             }
-            
             element.classList.add('selected');
             element.querySelector('input').checked = true;
             selectedStore = storeId;
-            
             document.getElementById('generateBtn').style.display = 'block';
         }
 
         function updateSteps(step) {
             for (var i = 1; i <= 5; i++) {
                 var stepEl = document.getElementById('step' + i);
-                if (i < step) {
-                    stepEl.className = 'step completed';
-                } else if (i === step) {
-                    stepEl.className = 'step active';
-                } else {
-                    stepEl.className = 'step';
-                }
+                if (i < step) stepEl.className = 'step completed';
+                else if (i === step) stepEl.className = 'step active';
+                else stepEl.className = 'step';
             }
             document.getElementById('progressText').textContent = 'Step ' + step + ' of 5';
         }
@@ -871,190 +447,215 @@
             var hasSelection = false;
             var checkboxes = document.querySelectorAll('#screen3 input[type="checkbox"]');
             for (var i = 0; i < checkboxes.length; i++) {
-                if (checkboxes[i].checked) {
-                    hasSelection = true;
-                    break;
-                }
+                if (checkboxes[i].checked) { hasSelection = true; break; }
             }
-            
-            if (!hasSelection) {
-                alert('Please select at least one food category!');
-                return;
-            }
-            
+            if (!hasSelection) { alert('Please select at least one food category!'); return; }
             goToScreen(screenNum);
         }
 
-        function generateList() {
-            if (!selectedStore) {
-                alert('Please select a store!');
-                return;
+        // ---------- Prewritten, Diet-Safe Plans ----------
+        // One plan = one list. No mixing to avoid diet mistakes.
+        const PLANS = {
+            "high-protein": [
+                { name: "Chicken breast", note: "2 lbs", price: 12.00 },
+                { name: "Eggs", note: "1 dozen", price: 3.00 },
+                { name: "Greek yogurt", note: "32 oz", price: 5.00 },
+                { name: "Canned tuna", note: "4 cans", price: 4.00 },
+                { name: "Black beans", note: "2 cans", price: 2.00 }
+            ],
+            "low-carb": [
+                { name: "Ground turkey", note: "2 lbs", price: 10.00 },
+                { name: "Eggs", note: "1 dozen", price: 3.00 },
+                { name: "Zucchini", note: "4", price: 4.00 },
+                { name: "Cauliflower rice", note: "2 frozen bags", price: 6.00 },
+                { name: "Cheese", note: "8 oz", price: 4.00 }
+            ],
+            "vegetarian": [
+                { name: "Lentils", note: "2 lbs", price: 4.00 },
+                { name: "Chickpeas", note: "2 cans", price: 3.00 },
+                { name: "Spinach", note: "1 bag", price: 3.00 },
+                { name: "Tofu", note: "2 blocks", price: 6.00 },
+                { name: "Whole-wheat pasta", note: "1 lb", price: 3.00 }
+            ],
+            "vegan": [
+                { name: "Tofu", note: "2 blocks", price: 6.00 },
+                { name: "Tempeh", note: "1 pack", price: 4.00 },
+                { name: "Lentils", note: "2 lbs", price: 4.00 },
+                { name: "Chickpeas", note: "2 cans", price: 3.00 },
+                { name: "Frozen mixed veggies", note: "2 bags", price: 4.00 }
+            ]
+        };
+
+        function pickPlanKey() {
+            const isVegan = document.getElementById('vegan').checked;
+            const isVegetarian = document.getElementById('vegetarian').checked;
+            const isKeto = document.getElementById('keto').checked;
+            const isHighProtein = document.getElementById('high_protein').checked;
+            // Precedence: Vegan > Vegetarian > Low-Carb (Keto) > High-Protein > default High-Protein
+            if (isVegan) return "vegan";
+            if (isVegetarian) return "vegetarian";
+            if (isKeto) return "low-carb";
+            if (isHighProtein) return "high-protein";
+            return "high-protein";
+        }
+
+        function formatCurrency(n) { return "$" + n.toFixed(2); }
+
+        function planToPlainText(title, items, total) {
+            let lines = [];
+            lines.push(title);
+            for (const it of items) {
+                lines.push(`- ${it.name}${it.note ? " ("+it.note+")" : ""} – ${formatCurrency(it.price)}`);
             }
-            
-            // Hide current screen and show loading
+            lines.push(`Estimated total: ${formatCurrency(total)}`);
+            return lines.join("\n");
+        }
+
+        // ---------- Generate & Render ----------
+        function generateList() {
+            if (!selectedStore) { alert('Please select a store!'); return; }
+
+            // Loading screen while we "build"
             document.getElementById('screen5').classList.remove('active');
             document.getElementById('loadingScreen').classList.add('active');
-            
-            // Simulate API call and then show results
-            setTimeout(function() {
-                showResults();
-            }, 3000);
+
+            setTimeout(function() { showResults(); }, 1200);
         }
 
         function showResults() {
-            // Hide loading screen and show results
+            // Switch to results screen
             document.getElementById('loadingScreen').classList.remove('active');
             document.getElementById('resultsScreen').classList.add('active');
-            
-            var priorities = [];
+
+            // Determine which single plan to use based on dietary
+            lastPlanKey = pickPlanKey();
+            const items = PLANS[lastPlanKey];
+            const titleMap = {
+                "high-protein": "High-Protein List",
+                "low-carb": "Low-Carb List",
+                "vegetarian": "Vegetarian List",
+                "vegan": "Vegan List"
+            };
+            const planTitle = titleMap[lastPlanKey];
+
+            // Compute totals
+            let total = 0;
+            items.forEach(i => total += i.price);
+            const totalItems = items.length;
+
+            // Render list (one card)
+            const listHTML = `
+                <div class="list-item">
+                    <div class="item-header">
+                        <span class="item-title">${planTitle}</span>
+                        <span class="quantity-badge">Items: ${totalItems}</span>
+                    </div>
+                    ${items.map(i => `
+                        <div class="product-name">${i.name}</div>
+                        <div class="product-details">
+                            ${i.note ? `<div>${i.note}</div>` : ``}
+                            <div class="price">${formatCurrency(i.price)}</div>
+                        </div>
+                    `).join('')}
+                    <div class="product-details" style="margin-top:8px;color:#777;">
+                        *Prices are rough estimates. Swap items freely.
+                    </div>
+                </div>
+            `;
+            document.getElementById('shoppingList').innerHTML = listHTML;
+
+            // Summary
+            const priorities = [];
             if (document.getElementById('budget').checked) priorities.push('Budget');
             if (document.getElementById('health').checked) priorities.push('Health');
             if (document.getElementById('calories').checked) priorities.push('Low-Calorie');
 
-            var householdSize = document.getElementById('householdSize').value;
-            var duration = document.getElementById('duration').value;
+            const householdSize = document.getElementById('householdSize').value;
+            const duration = document.getElementById('duration').value;
 
-            document.getElementById('shoppingList').innerHTML = 
-                '<div class="list-item">' +
-                '<div class="item-header">' +
-                '<span class="item-title">Proteins</span>' +
-                '<span class="quantity-badge">Qty: 2</span>' +
-                '</div>' +
-                '<div class="product-name">Simple Truth Organic Chicken Breast <span class="sale-badge">ON SALE!</span></div>' +
-                '<div class="product-details">' +
-                '<div class="price">$6.99 (was $8.99) - 1 lb package</div>' +
-                '<div class="location">Meat Department - Aisle 8</div>' +
-                '<div class="nutrition"><strong>Nutrition per 4oz:</strong> 140 calories, 26g protein, 3g fat, 0g carbs</div>' +
-                '</div>' +
-                '<div class="alternatives">' +
-                '<div class="alternatives-title">Available Alternatives at This Store:</div>' +
-                '<div class="alternative-item"><strong>Kroger Brand Chicken Breast</strong> - $5.49/lb<br>130 calories, 24g protein per 4oz</div>' +
-                '<div class="alternative-item"><strong>Perdue Harvestland Organic Chicken</strong> - $7.99/lb<br>140 calories, 26g protein per 4oz</div>' +
-                '<div class="alternative-item"><strong>Bell & Evans Chicken Breast</strong> - $8.49/lb<br>130 calories, 25g protein per 4oz</div>' +
-                '</div>' +
-                '</div>' +
-                '<div class="list-item">' +
-                '<div class="item-header">' +
-                '<span class="item-title">Dairy</span>' +
-                '<span class="quantity-badge">Qty: 1</span>' +
-                '</div>' +
-                '<div class="product-name">Simple Truth Organic Whole Milk</div>' +
-                '<div class="product-details">' +
-                '<div class="price">$3.49 - 64 fl oz</div>' +
-                '<div class="location">Dairy - Aisle 12</div>' +
-                '<div class="nutrition"><strong>Nutrition per cup:</strong> 150 calories, 8g protein, 8g fat, 12g carbs</div>' +
-                '</div>' +
-                '<div class="alternatives">' +
-                '<div class="alternatives-title">Available Alternatives at This Store:</div>' +
-                '<div class="alternative-item"><strong>Kroger Brand Organic Milk</strong> - $2.99/64oz<br>150 calories, 8g protein per cup</div>' +
-                '<div class="alternative-item"><strong>Horizon Organic Whole Milk</strong> - $4.29/64oz<br>150 calories, 8g protein per cup</div>' +
-                '<div class="alternative-item"><strong>Simple Truth 2% Milk</strong> - $2.99/64oz<br>120 calories, 8g protein per cup</div>' +
-                '</div>' +
-                '</div>' +
-                '<div class="list-item">' +
-                '<div class="item-header">' +
-                '<span class="item-title">Grains</span>' +
-                '<span class="quantity-badge">Qty: 1</span>' +
-                '</div>' +
-                '<div class="product-name">Dave\'s Killer Bread - 21 Whole Grains</div>' +
-                '<div class="product-details">' +
-                '<div class="price">$4.99 - 27 oz loaf</div>' +
-                '<div class="location">Bakery - Aisle 6</div>' +
-                '<div class="nutrition"><strong>Nutrition per slice:</strong> 110 calories, 5g protein, 2g fat, 22g carbs</div>' +
-                '</div>' +
-                '<div class="alternatives">' +
-                '<div class="alternatives-title">Available Alternatives at This Store:</div>' +
-                '<div class="alternative-item"><strong>Kroger Carbmaster Wheat Bread</strong> - $2.79/20oz<br>60 calories, 6g protein per slice</div>' +
-                '<div class="alternative-item"><strong>Nature\'s Own 100% Whole Wheat</strong> - $2.99/20oz<br>70 calories, 4g protein per slice</div>' +
-                '<div class="alternative-item"><strong>Ezekiel 4:9 Sprouted Grain Bread</strong> - $5.49/24oz<br>80 calories, 4g protein per slice</div>' +
-                '</div>' +
-                '</div>';
-
-            document.getElementById('summary').innerHTML = 
+            document.getElementById('summary').innerHTML =
                 '<h3 style="margin-bottom: 20px; text-align: center;">Shopping Summary</h3>' +
-                '<div class="summary-row"><span>Priorities:</span><span>' + (priorities.length > 0 ? priorities.join(', ') : 'None selected') + '</span></div>' +
-                '<div class="summary-row"><span>Total Items:</span><span>4</span></div>' +
+                '<div class="summary-row"><span>Diet Plan:</span><span>' + planTitle + '</span></div>' +
+                '<div class="summary-row"><span>Priorities:</span><span>' + (priorities.length ? priorities.join(', ') : 'None selected') + '</span></div>' +
+                '<div class="summary-row"><span>Total Items:</span><span>' + totalItems + '</span></div>' +
                 '<div class="summary-row"><span>Household:</span><span>' + householdSize + ' people</span></div>' +
                 '<div class="summary-row"><span>Duration:</span><span>' + duration + ' week(s)</span></div>' +
-                '<div class="summary-row"><span>Savings:</span><span>$2.00</span></div>' +
-                '<div class="summary-row"><span>Total Cost:</span><span>$15.47</span></div>';
+                '<div class="summary-row"><span>Estimated Total:</span><span>' + formatCurrency(total) + '</span></div>';
+
+            // Build plain text for copy/email/save
+            generatedText = planToPlainText(planTitle, items, total) +
+                `\n\nHousehold: ${householdSize} people\nDuration: ${duration} week(s)\n` +
+                `Priorities: ${priorities.length ? priorities.join(', ') : 'None selected'}`;
         }
 
+        // ---------- Utilities: copy / email / print / save ----------
         function startOver() {
             currentScreen = 1;
             selectedStore = null;
-            
+            generatedText = "";
+            lastPlanKey = "";
+
             var checkboxes = document.querySelectorAll('input[type="checkbox"]');
             for (var i = 0; i < checkboxes.length; i++) {
                 checkboxes[i].checked = false;
                 var parent = checkboxes[i].closest('.checkbox-item');
                 if (parent) parent.classList.remove('selected');
             }
-            
+
             var radios = document.querySelectorAll('input[type="radio"]');
             for (var i = 0; i < radios.length; i++) {
                 radios[i].checked = false;
-                var parent = radios[i].closest('.radio-item');
-                if (parent) parent.classList.remove('selected');
+                var parentR = radios[i].closest('.radio-item');
+                if (parentR) parentR.classList.remove('selected');
             }
-            
+
             document.getElementById('householdSize').value = '2';
             document.getElementById('duration').value = '1';
             document.getElementById('budget').value = '';
             document.getElementById('zipcode').value = '';
             document.getElementById('generateBtn').style.display = 'none';
-            
+
             var screens = document.querySelectorAll('.screen');
-            for (var i = 0; i < screens.length; i++) {
-                screens[i].classList.remove('active');
-            }
+            for (var i = 0; i < screens.length; i++) screens[i].classList.remove('active');
             document.getElementById('screen1').classList.add('active');
             updateSteps(1);
+        }
+
+        function copyList() {
+            if (!generatedText) return;
+            try {
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(generatedText);
+                } else {
+                    const ta = document.createElement('textarea');
+                    ta.value = generatedText; document.body.appendChild(ta); ta.select();
+                    document.execCommand('copy'); document.body.removeChild(ta);
+                }
+                alert('List copied to clipboard!');
+            } catch (e) {
+                alert('Copy failed. You can still use Print or Save.');
+            }
+        }
+
+        function emailList() {
+            if (!generatedText) return;
+            const subject = encodeURIComponent('Your Happy Grocer List');
+            const body = encodeURIComponent(generatedText + '\n\nGenerated at https://happygrocerco.github.io/happy-grocer/');
+            window.location.href = `mailto:?subject=${subject}&body=${body}`;
         }
 
         function printList() {
             var printContent = document.getElementById('resultsScreen').innerHTML;
             var originalContent = document.body.innerHTML;
-            
             document.body.innerHTML = '<style>body{font-family:Arial,sans-serif;padding:20px;color:#333;} .btn{display:none;} .card{box-shadow:none;border:1px solid #ddd;}</style>' + printContent;
             window.print();
             document.body.innerHTML = originalContent;
-            
-            // Restart functionality after print
             location.reload();
         }
 
         function saveList() {
-            var listContent = document.getElementById('shoppingList').innerHTML;
-            var summaryContent = document.getElementById('summary').innerHTML;
-            
-            // Create text content
-            var textContent = "HAPPY GROCER SHOPPING LIST\n";
-            textContent += "Shopping Smart for Happy Carts\n";
-            textContent += "=====================================\n\n";
-            
-            // Extract list items (simplified)
-            textContent += "SHOPPING ITEMS:\n";
-            textContent += "• Proteins (Qty: 2)\n";
-            textContent += "  - Simple Truth Organic Chicken Breast - $6.99 (ON SALE!)\n";
-            textContent += "  - Location: Meat Department - Aisle 8\n";
-            textContent += "  - Nutrition: 140 cal, 26g protein per 4oz\n\n";
-            textContent += "• Dairy (Qty: 1)\n";
-            textContent += "  - Simple Truth Organic Whole Milk - $3.49\n";
-            textContent += "  - Location: Dairy - Aisle 12\n";
-            textContent += "  - Nutrition: 150 cal, 8g protein per cup\n\n";
-            textContent += "• Grains (Qty: 1)\n";
-            textContent += "  - Dave's Killer Bread 21 Whole Grains - $4.99\n";
-            textContent += "  - Location: Bakery - Aisle 6\n";
-            textContent += "  - Nutrition: 110 cal, 5g protein per slice\n\n";
-            
-            textContent += "SUMMARY:\n";
-            textContent += "Total Items: 4\n";
-            textContent += "Total Cost: $15.47\n";
-            textContent += "Savings: $2.00\n";
-            
-            // Create and download file
-            var blob = new Blob([textContent], { type: 'text/plain' });
+            if (!generatedText) return;
+            var blob = new Blob([generatedText], { type: 'text/plain' });
             var url = window.URL.createObjectURL(blob);
             var a = document.createElement('a');
             a.href = url;
@@ -1063,7 +664,6 @@
             a.click();
             document.body.removeChild(a);
             window.URL.revokeObjectURL(url);
-            
             alert('Shopping list saved successfully!');
         }
     </script>
