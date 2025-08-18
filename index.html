@@ -529,10 +529,31 @@
       }catch(e){ alert('Copy failed. You can still use Print or Save.'); }
     }
     function emailList(){
-      if(!generatedText) return;
-      const subject=encodeURIComponent('Your Happy Grocer List');
-      const body=encodeURIComponent(generatedText+'\n\nGenerated at https://happygrocerco.github.io/happy-grocer/');
-      window.location.href=`mailto:?subject=${subject}&body=${body}`;
+    if (!generatedText) {
+        alert('Generate a list first.');
+        return;
+    }
+
+    const subject = 'Your Happy Grocer List';
+    const body = generatedText + '\n\nGenerated at https://happygrocerco.github.io/happy-grocer/';
+    const mailto = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+    // Try via a hidden anchor (more reliable than just setting window.location)
+    const a = document.createElement('a');
+    a.href = mailto;
+    a.style.display = 'none';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+
+    // Fallback: if nothing opened (common when no default mail app),
+    // copy the list and nudge the user.
+    setTimeout(() => {
+        if (document.visibilityState === 'visible') {
+            try { copyList(); } catch (e) {}
+            alert("If your email didn't open, set a default mail app or allow 'mailto:' links in your browser. I copied the list to your clipboard so you can paste it into any email.");
+        }
+    }, 1200);
     }
     function printList(){
       const html=document.getElementById('resultsScreen').innerHTML;
@@ -563,4 +584,5 @@
   </script>
 </body>
 </html>
+
 
