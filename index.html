@@ -260,6 +260,11 @@
   </div>
 
   <script>
+    // === PLACEHOLDERS for future integration ===
+    const KROGER_CLIENT_ID = "YOUR_KROGER_CLIENT_ID_HERE";
+    const KROGER_CLIENT_SECRET = "YOUR_KROGER_CLIENT_SECRET_HERE";
+    const KROGER_API_ENDPOINT = "https://api.kroger.com/v1/products";
+    
     // ------------- State & Navigation -------------
     let currentScreen = 1;
     let generatedText = '';
@@ -423,6 +428,14 @@
 
     // ------------- Generate & render -------------
     function generateList(){
+        // === MVP: static list ===
+  const list = generateStaticList(userPreferences);
+
+      // === FUTURE: Generative AI integration ===
+      // Example (pseudo-code):
+      // const list = await callAIModel(userPreferences);
+      // showResults(list);
+      
       // show loading then results
       document.getElementById('screen'+currentScreen).classList.remove('active');
       document.getElementById('loadingScreen').classList.add('active');
@@ -550,3 +563,4 @@
   </script>
 </body>
 </html>
+
