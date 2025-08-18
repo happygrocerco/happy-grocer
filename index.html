@@ -324,7 +324,7 @@
                     <input type="text" id="zipcode" placeholder="12345">
                 </div>
 
-                <button class="btn" onclick="goToScreen(5)">Find Stores</button>
+                <button class="btn" onclick="generateList()">Generate My List</button>
             </div>
         </div>
 
@@ -513,16 +513,16 @@
 
         // ---------- Generate & Render ----------
         function generateList() {
-            if (!selectedStore) { alert('Please select a store!'); return; }
+    // MVP: no store selection needed. Hide whatever screen is active.
+    var active = document.querySelector('.screen.active');
+    if (active) active.classList.remove('active');
 
-            // Loading screen while we "build"
-            document.getElementById('screen5').classList.remove('active');
-            document.getElementById('loadingScreen').classList.add('active');
-
-            setTimeout(function() { showResults(); }, 1200);
-        }
-
-        function showResults() {
+    // Show loading, then results
+    document.getElementById('loadingScreen').classList.add('active');
+    setTimeout(function () {
+        showResults();
+    }, 1200);
+}
             // Switch to results screen
             document.getElementById('loadingScreen').classList.remove('active');
             document.getElementById('resultsScreen').classList.add('active');
@@ -669,3 +669,4 @@
     </script>
 </body>
 </html>
+
