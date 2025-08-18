@@ -1,22 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Happy Grocer - Smart Shopping Made Easy</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     *{margin:0;padding:0;box-sizing:border-box}
-    body{
-      font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
-      background:#f7f3a9;min-height:100vh;color:#6b46c1
-    }
+    body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#f7f3a9;min-height:100vh;color:#6b46c1}
     .container{max-width:400px;margin:0 auto;padding:20px;min-height:100vh}
     .header{text-align:center;margin-bottom:30px;color:#6b46c1}
-    .logo{
-      font-size:4rem;margin-bottom:15px;background:#7c3aed;border-radius:20px;width:120px;height:120px;margin:0 auto 20px;
-      display:flex;align-items:center;justify-content:center;position:relative;box-shadow:0 10px 30px rgba(0,0,0,.2)
-    }
+    .logo{font-size:4rem;margin-bottom:15px;background:#7c3aed;border-radius:20px;width:120px;height:120px;margin:0 auto 20px;display:flex;align-items:center;justify-content:center;position:relative;box-shadow:0 10px 30px rgba(0,0,0,.2)}
     .cart-logo{width:80px;height:80px;position:relative}
     .cart-body{width:50px;height:35px;background:#fbbf24;border:4px solid #4c1d95;border-radius:8px;position:absolute;top:25px;left:20px}
     .cart-handle{width:20px;height:25px;border:4px solid #fbbf24;border-right:none;border-radius:8px 0 0 8px;position:absolute;top:25px;left:0}
@@ -30,11 +24,7 @@
     .app-title{font-size:2.8rem;font-weight:800;margin-bottom:5px;letter-spacing:1px;color:#6b46c1;text-shadow:2px 2px 4px rgba(0,0,0,.3)}
     .subtitle{font-size:1.1rem;opacity:.9;font-weight:500;color:#7c3aed}
 
-    .card{
-      background:rgba(255,255,255,.95);backdrop-filter:blur(20px);border-radius:25px;padding:30px;margin-bottom:25px;
-      box-shadow:0 20px 40px rgba(139,92,246,.3),0 10px 20px rgba(251,191,36,.2),inset 0 1px 0 rgba(255,255,255,.6);
-      border:1px solid rgba(255,255,255,.3);transition:all .4s cubic-bezier(.4,0,.2,1)
-    }
+    .card{background:rgba(255,255,255,.95);backdrop-filter:blur(20px);border-radius:25px;padding:30px;margin-bottom:25px;box-shadow:0 20px 40px rgba(139,92,246,.3),0 10px 20px rgba(251,191,36,.2),inset 0 1px 0 rgba(255,255,255,.6);border:1px solid rgba(255,255,255,.3);transition:all .4s cubic-bezier(.4,0,.2,1)}
     .card:hover{transform:translateY(-8px) scale(1.02);box-shadow:0 30px 60px rgba(139,92,246,.4),0 15px 30px rgba(251,191,36,.3),inset 0 1px 0 rgba(255,255,255,.8)}
 
     .step-indicator{display:flex;justify-content:center;margin-bottom:25px;gap:10px}
@@ -49,10 +39,7 @@
 
     .option-group{margin-bottom:25px}
     .checkbox-group{display:grid;gap:12px}
-    .checkbox-item{
-      display:flex;align-items:center;padding:20px;border:2px solid #6b46c1;border-radius:18px;cursor:pointer;transition:all .3s ease;
-      background:rgba(255,255,255,.95);position:relative;overflow:hidden
-    }
+    .checkbox-item{display:flex;align-items:center;padding:20px;border:2px solid #6b46c1;border-radius:18px;cursor:pointer;transition:all .3s ease;background:rgba(255,255,255,.95);position:relative;overflow:hidden}
     .checkbox-item:hover{border-color:#7c3aed;background:#fff;transform:translateY(-3px);box-shadow:0 10px 25px rgba(107,70,193,.3)}
     .checkbox-item.selected{border-color:#6b46c1;background:#7c3aed;color:#fff;transform:translateY(-5px) scale(1.02);box-shadow:0 15px 35px rgba(124,58,237,.4)}
     .checkbox-item input{margin-right:12px;transform:scale(1.2)}
@@ -61,18 +48,10 @@
 
     .input-group{margin-bottom:20px}
     .input-group label{display:block;margin-bottom:8px;font-weight:600;color:#555}
-    input[type="text"],input[type="number"],select{
-      width:100%;padding:18px 20px;border:2px solid rgba(251,191,36,.3);border-radius:15px;font-size:1.1rem;
-      background:linear-gradient(135deg,rgba(255,255,255,.95),rgba(251,191,36,.1));backdrop-filter:blur(10px);transition:all .3s ease;
-      font-family:'Inter',sans-serif;font-weight:500
-    }
+    input[type="number"],select{width:100%;padding:18px 20px;border:2px solid rgba(251,191,36,.3);border-radius:15px;font-size:1.1rem;background:linear-gradient(135deg,rgba(255,255,255,.95),rgba(251,191,36,.1));backdrop-filter:blur(10px);transition:all .3s ease;font-family:'Inter',sans-serif;font-weight:500}
     input:focus,select:focus{outline:none;border-color:#fbbf24;background:rgba(255,255,255,.95);box-shadow:0 0 0 3px rgba(251,191,36,.3),0 8px 25px rgba(124,58,237,.2);transform:translateY(-2px)}
 
-    .btn{
-      width:100%;padding:16px;border:none;border-radius:18px;font-size:1.05rem;font-weight:700;cursor:pointer;
-      transition:all .2s cubic-bezier(.4,0,.2,1);margin-top:16px;background:#7c3aed;color:#fff;text-transform:uppercase;letter-spacing:.6px;
-      box-shadow:0 8px 22px rgba(124,58,237,.35)
-    }
+    .btn{width:100%;padding:16px;border:none;border-radius:18px;font-size:1.05rem;font-weight:700;cursor:pointer;transition:all .2s cubic-bezier(.4,0,.2,1);margin-top:16px;background:#7c3aed;color:#fff;text-transform:uppercase;letter-spacing:.6px;box-shadow:0 8px 22px rgba(124,58,237,.35)}
     .btn:hover{transform:translateY(-2px);background:#6b46c1;box-shadow:0 14px 32px rgba(124,58,237,.45)}
     .btn:active{transform:translateY(-1px) scale(.99)}
     .btn.secondary{background:#fff;color:#6b46c1;border:2px solid #6b46c1;box-shadow:none;text-transform:none}
@@ -80,38 +59,21 @@
 
     .progress-text{text-align:center;color:#6b46c1;margin-bottom:20px;font-weight:600}
 
-    .radio-item{
-      display:flex;align-items:center;padding:18px;border:2px solid #6b46c1;border-radius:16px;cursor:pointer;margin-bottom:15px;
-      background:rgba(255,255,255,.9);transition:all .3s ease
-    }
-    .radio-item:hover{border-color:#7c3aed;background:#fff;transform:translateY(-2px);box-shadow:0 8px 20px rgba(107,70,193,.3)}
-    .radio-item.selected{border-color:#6b46c1;background:#7c3aed;color:#fff;transform:translateY(-3px);box-shadow:0 12px 30px rgba(124,58,237,.4)}
-
     .loading{text-align:center;padding:40px}
-    .spinner{
-      width:60px;height:60px;border:5px solid rgba(253,224,71,.3);border-top:5px solid #8b5cf6;border-right:5px solid #fde047;border-radius:50%;
-      animation:spin 1s linear infinite;margin:0 auto 20px;filter:drop-shadow(0 4px 8px rgba(139,92,246,.3))
-    }
+    .spinner{width:60px;height:60px;border:5px solid rgba(253,224,71,.3);border-top:5px solid #8b5cf6;border-right:5px solid #fde047;border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 20px;filter:drop-shadow(0 4px 8px rgba(139,92,246,.3))}
     @keyframes spin{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}
 
-    .list-item{
-      background:linear-gradient(135deg,rgba(255,255,255,.95),rgba(253,224,71,.1));
-      backdrop-filter:blur(15px);border-radius:18px;padding:25px;margin-bottom:20px;border-left:5px solid #8b5cf6;border:1px solid rgba(139,92,246,.2);
-      box-shadow:0 8px 25px rgba(139,92,246,.2);transition:all .3s ease
-    }
-    .list-item:hover{transform:translateY(-3px);box-shadow:0 15px 35px rgba(139,92,246,.3)}
+    .list-item{background:linear-gradient(135deg,rgba(255,255,255,.95),rgba(253,224,71,.1));backdrop-filter:blur(15px);border-radius:18px;padding:25px;margin-bottom:20px;border-left:5px solid #8b5cf6;border:1px solid rgba(139,92,246,.2);box-shadow:0 8px 25px rgba(139,92,246,.2);transition:all .3s ease}
     .item-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px}
     .item-title{font-weight:bold;color:#333;font-size:1.2rem}
     .quantity-badge{background:#7c3aed;color:#fff;padding:6px 16px;border-radius:25px;font-size:.9rem;font-weight:600;box-shadow:0 4px 12px rgba(124,58,237,.3)}
     .product-block{margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid rgba(0,0,0,.06)}
     .product-block:last-child{border-bottom:none}
     .product-name{font-weight:600;color:#444;margin-bottom:6px;font-size:1.05rem}
-    .product-details{color:#666;line-height:1.55}
+    .product-details{color:#666;line-height:1.6}
     .price{font-weight:700;color:#7c3aed;font-size:1.05rem}
 
-    .summary-card{
-      background:#7c3aed;color:#fff;border-radius:20px;padding:30px;margin-top:25px;box-shadow:0 20px 40px rgba(124,58,237,.4);border:1px solid rgba(255,255,255,.2)
-    }
+    .summary-card{background:#7c3aed;color:#fff;border-radius:20px;padding:30px;margin-top:25px;box-shadow:0 20px 40px rgba(124,58,237,.4);border:1px solid rgba(255,255,255,.2)}
     .summary-row{display:flex;justify-content:space-between;margin-bottom:12px;align-items:center}
     .summary-row:last-child{margin-bottom:0;padding-top:15px;border-top:1px solid rgba(255,255,255,.3);font-weight:bold;font-size:1.2rem}
 
@@ -138,11 +100,11 @@
       <div class="step" id="step2"></div>
       <div class="step" id="step3"></div>
       <div class="step" id="step4"></div>
-      <div class="step" id="step5"></div>
+      <!-- step5 kept for future store screen; currently hidden -->
     </div>
-    <div class="progress-text" id="progressText">Step 1 of 5</div>
+    <div class="progress-text" id="progressText">Step 1 of 4</div>
 
-    <!-- Screen 1 -->
+    <!-- Screen 1: Priorities -->
     <div class="screen active" id="screen1">
       <div class="card">
         <div class="emoji-header"><span style="color:#8b5cf6;">🎯</span></div>
@@ -151,13 +113,13 @@
         <div class="option-group">
           <div class="checkbox-group">
             <div class="checkbox-item" onclick="selectOption(this,'budget')">
-              <input type="checkbox" id="budget"><span class="option-emoji">💰</span><span>Budget-friendly (cheapest options)</span>
+              <input type="checkbox" id="budget"><span class="option-emoji">💰</span><span>Budget-friendly</span>
             </div>
             <div class="checkbox-item" onclick="selectOption(this,'health')">
-              <input type="checkbox" id="health"><span class="option-emoji">🥗</span><span>Health-focused (nutritious options)</span>
+              <input type="checkbox" id="health"><span class="option-emoji">🥗</span><span>Health-focused</span>
             </div>
             <div class="checkbox-item" onclick="selectOption(this,'calories')">
-              <input type="checkbox" id="calories"><span class="option-emoji">🔥</span><span>Low-calorie (fewest calories)</span>
+              <input type="checkbox" id="calories"><span class="option-emoji">🔥</span><span>Low-calorie</span>
             </div>
           </div>
         </div>
@@ -165,7 +127,7 @@
       </div>
     </div>
 
-    <!-- Screen 2 -->
+    <!-- Screen 2: Dietary -->
     <div class="screen" id="screen2">
       <div class="card">
         <div class="emoji-header"><span style="color:#fbbf24;">🥗</span></div>
@@ -197,7 +159,7 @@
       </div>
     </div>
 
-    <!-- Screen 3 -->
+    <!-- Screen 3: Categories -->
     <div class="screen" id="screen3">
       <div class="card">
         <div class="emoji-header"><span style="color:#8b5cf6;">🍽️</span></div>
@@ -232,7 +194,7 @@
       </div>
     </div>
 
-    <!-- Screen 4 -->
+    <!-- Screen 4: Household (ZIP hidden on purpose) -->
     <div class="screen" id="screen4">
       <div class="card">
         <div class="emoji-header"><span style="color:#fbbf24;">👨‍👩‍👧‍👦</span></div>
@@ -248,47 +210,23 @@
             <option value="2">2 weeks</option>
           </select>
         </div>
-        <div class="input-group">
-          <label>💰 Budget (optional)</label>
-          <input type="number" id="budget" placeholder="Enter budget">
-        </div>
-        <div class="input-group">
+        <!-- ZIP UI intentionally hidden for MVP; keep element in DOM for future -->
+        <div class="input-group" style="display:none;">
           <label>📍 Zip code</label>
-          <input type="text" id="zipcode" placeholder="12345">
+          <input type="number" id="zipcode" placeholder="12345">
         </div>
         <div class="util-row">
           <button class="btn secondary" onclick="goBack()">Back</button>
-          <button class="btn" onclick="goToScreen(5)">Find Stores</button>
+          <button class="btn" onclick="generateList()">Generate My List</button>
         </div>
       </div>
     </div>
 
-    <!-- Screen 5 -->
+    <!-- (Future) Screen 5: Store selection (fully hidden for MVP)
     <div class="screen" id="screen5">
-      <div class="card">
-        <div class="emoji-header"><span style="color:#8b5cf6;">🛍️</span></div>
-        <h2>Choose Your Store</h2>
-        <div id="storesList">
-          <div class="radio-item" onclick="selectStore(this,'1')">
-            <input type="radio" name="store" value="1">
-            <div><div style="font-weight:bold;">Kroger - Main Street</div><div style="color:#666;">123 Main St, Anytown, ST 12345</div></div>
-          </div>
-          <div class="radio-item" onclick="selectStore(this,'2')">
-            <input type="radio" name="store" value="2">
-            <div><div style="font-weight:bold;">Kroger - Downtown</div><div style="color:#666;">456 Oak Ave, Anytown, ST 12345</div></div>
-          </div>
-          <div class="radio-item" onclick="selectStore(this,'3')">
-            <input type="radio" name="store" value="3">
-            <div><div style="font-weight:bold;">Kroger - Eastside</div><div style="color:#666;">789 Pine Rd, Anytown, ST 12345</div></div>
-          </div>
-        </div>
-        <div class="util-row">
-          <button class="btn secondary" onclick="goBack()">Back</button>
-          <button class="btn secondary" onclick="skipStore()">Skip Store</button>
-          <button class="btn" id="generateBtn" onclick="generateList()">Generate My Shopping List</button>
-        </div>
-      </div>
+      ... keep your store UI here if you want to re-enable later ...
     </div>
+    -->
 
     <!-- Loading -->
     <div class="screen" id="loadingScreen">
@@ -322,21 +260,15 @@
   </div>
 
   <script>
-    // ------------ State & Navigation ------------
-    var currentScreen = 1;
-    var selectedStore = null;
-    var generatedText = "";
-    var lastPlanKey = "";
+    // ------------- State & Navigation -------------
+    let currentScreen = 1;
+    let generatedText = '';
 
     function selectOption(el){ const cb=el.querySelector('input'); cb.checked=!cb.checked; el.classList.toggle('selected',cb.checked); }
-    function selectStore(el,id){
-      document.querySelectorAll('.radio-item').forEach(x=>{x.classList.remove('selected'); x.querySelector('input').checked=false;});
-      el.classList.add('selected'); el.querySelector('input').checked=true; selectedStore=id;
-    }
     function updateSteps(step){
-      for(let i=1;i<=5;i++){ const s=document.getElementById('step'+i);
+      for(let i=1;i<=4;i++){ const s=document.getElementById('step'+i); if(!s) continue;
         s.className = i<step ? 'step completed' : (i===step?'step active':'step'); }
-      document.getElementById('progressText').textContent='Step '+step+' of 5';
+      document.getElementById('progressText').textContent='Step '+step+' of 4';
     }
     function goToScreen(n){
       document.getElementById('screen'+currentScreen).classList.remove('active');
@@ -349,139 +281,150 @@
       if(!any){ alert('Please select at least one food category!'); return; }
       goToScreen(n);
     }
-    function skipStore(){ generateList(); }
 
-    // ------------ Catalog & Plans (tagged) ------------
-    // tags: vegan, vegetarian, dairy, meat, fish, gluten, high-carb, protein, snack, fruit, veg, grain
+    // ------------- Catalog with tags & meta -------------
+    // tags: vegan, vegetarian, meat, fish, dairy, gluten, grain, veg, fruit, snack, protein, high-carb, low-cal, heart-healthy
     const CATALOG = [
-      // proteins omni/veg/vegan
-      {name:'Chicken breast', note:'2 lbs', price:12, tags:['protein','meat']},
-      {name:'Ground turkey', note:'2 lbs', price:10, tags:['protein','meat']},
-      {name:'Salmon fillets', note:'1 lb', price:9, tags:['protein','fish']},
+      // proteins
+      {name:'Chicken breast', note:'2 lbs', price:12, tags:['protein','meat','low-cal']},
+      {name:'Ground turkey', note:'2 lbs', price:10, tags:['protein','meat','low-cal']},
+      {name:'Salmon fillets', note:'1 lb', price:9, tags:['protein','fish','heart-healthy','low-cal']},
       {name:'Eggs', note:'1 dozen', price:3, tags:['protein','vegetarian','dairy']},
       {name:'Greek yogurt', note:'32 oz', price:5, tags:['protein','vegetarian','dairy']},
-      {name:'Canned tuna', note:'4 cans', price:4, tags:['protein','fish']},
-      {name:'Tofu', note:'2 blocks', price:6, tags:['protein','vegan','vegetarian']},
+      {name:'Tofu', note:'2 blocks', price:6, tags:['protein','vegan','vegetarian','low-cal']},
       {name:'Tempeh', note:'1 pack', price:4, tags:['protein','vegan','vegetarian']},
-      {name:'Lentils', note:'2 lbs', price:4, tags:['vegan','vegetarian','high-carb','protein']},
-      {name:'Chickpeas', note:'2 cans', price:3, tags:['vegan','vegetarian','high-carb','protein']},
-      {name:'Edamame', note:'12 oz', price:4, tags:['vegan','vegetarian','protein']},
+      {name:'Lentils', note:'2 lbs', price:4, tags:['protein','vegan','vegetarian','high-carb']},
+      {name:'Chickpeas', note:'2 cans', price:3, tags:['protein','vegan','vegetarian','high-carb']},
+      {name:'Edamame', note:'12 oz', price:4, tags:['protein','vegan','vegetarian','low-cal']},
 
       // dairy
+      {name:'Cottage cheese', note:'16 oz', price:4, tags:['dairy','vegetarian','protein','low-cal']},
       {name:'Milk', note:'64 fl oz', price:3.5, tags:['dairy','vegetarian']},
-      {name:'Cottage cheese', note:'16 oz', price:4, tags:['dairy','vegetarian','protein']},
 
       // grains
       {name:'Whole-wheat pasta', note:'1 lb', price:3, tags:['grain','gluten','high-carb']},
       {name:"Dave's Killer Bread", note:'27 oz', price:5, tags:['grain','gluten','high-carb']},
       {name:'Brown rice', note:'2 lbs', price:4, tags:['grain','high-carb']},
       {name:'Quinoa', note:'1 lb', price:5, tags:['grain','high-carb','gluten-free']},
-      {name:'Cauliflower rice', note:'2 frozen bags', price:6, tags:['veg','vegan','vegetarian']},
-      {name:'Zucchini', note:'4', price:4, tags:['veg','vegan','vegetarian']},
-      {name:'Avocado', note:'2', price:3, tags:['veg','vegan','vegetarian']},
+      {name:'Cauliflower rice', note:'2 frozen bags', price:6, tags:['veg','vegan','vegetarian','low-cal']},
 
       // fruits & veg
       {name:'Bananas', note:'6', price:2, tags:['fruit','vegan','vegetarian','high-carb']},
-      {name:'Apples', note:'4', price:3, tags:['fruit','vegan','vegetarian']},
-      {name:'Spinach', note:'1 bag', price:3, tags:['veg','vegan','vegetarian']},
-      {name:'Broccoli', note:'2 heads', price:3, tags:['veg','vegan','vegetarian']},
+      {name:'Apples', note:'4', price:3, tags:['fruit','vegan','vegetarian','low-cal']},
+      {name:'Spinach', note:'1 bag', price:3, tags:['veg','vegan','vegetarian','low-cal','heart-healthy']},
+      {name:'Broccoli', note:'2 heads', price:3, tags:['veg','vegan','vegetarian','low-cal','heart-healthy']},
+      {name:'Zucchini', note:'4', price:4, tags:['veg','vegan','vegetarian','low-cal']},
+      {name:'Avocado', note:'2', price:3, tags:['veg','vegan','vegetarian','heart-healthy']},
 
       // snacks
-      {name:'Almonds', note:'12 oz', price:6, tags:['snack','vegan','vegetarian','protein']},
-      {name:'String cheese', note:'10 sticks', price:5, tags:['snack','dairy','vegetarian','protein']},
+      {name:'Almonds', note:'12 oz', price:6, tags:['snack','vegan','vegetarian','protein','heart-healthy']},
+      {name:'String cheese', note:'10 sticks', price:5, tags:['snack','dairy','vegetarian','protein','low-cal']},
       {name:'Hummus', note:'10 oz', price:4, tags:['snack','vegan','vegetarian']},
       {name:'Popcorn kernels', note:'1 lb', price:3, tags:['snack','vegan','vegetarian','grain','high-carb']},
       {name:'Dark chocolate (70%)', note:'3.5 oz', price:3, tags:['snack','vegan','vegetarian']}
     ];
 
-    const BASE_PLANS = {
-      "vegan":      ['Tofu','Lentils','Chickpeas','Frozen mixed veggies','Spinach'],
-      "vegetarian": ['Eggs','Greek yogurt','Tofu','Spinach','Whole-wheat pasta'],
-      "low-carb":   ['Ground turkey','Eggs','Zucchini','Cauliflower rice','Cheese'],
-      "high-protein": ['Chicken breast','Eggs','Greek yogurt','Canned tuna','Black beans']
-    };
-    // map names to CATALOG entries (with graceful fallback)
-    function catByName(n){
-      return CATALOG.find(x=>x.name===n) ||
-        (n==='Frozen mixed veggies' ? {name:n, note:'2 bags', price:4, tags:['veg','vegan','vegetarian']} :
-         n==='Cheese' ? {name:n, note:'8 oz', price:4, tags:['dairy','vegetarian','protein']} :
-         n==='Black beans' ? {name:n, note:'2 cans', price:2, tags:['vegan','vegetarian','protein']} :
-         null);
-    }
-
-    function getFlags(){
+    // ------------- Diet & priority logic -------------
+    function flags(){
       return {
         vegan: document.getElementById('vegan').checked,
         vegetarian: document.getElementById('vegetarian').checked,
         keto: document.getElementById('keto').checked,
         gluten_free: document.getElementById('gluten_free').checked,
-        high_protein: document.getElementById('high_protein').checked
+        high_protein: document.getElementById('high_protein').checked,
+        budget: document.getElementById('budget').checked,
+        health: document.getElementById('health').checked,
+        low_cal: document.getElementById('calories').checked
       };
     }
-    function allowedByFlags(item, f){
-      const t = item.tags || [];
-      if (f.vegan && (t.includes('meat') || t.includes('fish') || t.includes('dairy'))) return false;
-      if (f.vegetarian && (t.includes('meat') || t.includes('fish'))) return false;
-      if (f.keto && t.includes('high-carb')) return false;
-      if (f.gluten_free && t.includes('gluten')) return false;
+
+    function allowedByDiet(item, f){
+      const t=item.tags||[];
+      if(f.vegan && (t.includes('meat')||t.includes('fish')||t.includes('dairy'))) return false;
+      if(f.vegetarian && (t.includes('meat')||t.includes('fish'))) return false;
+      if(f.keto && t.includes('high-carb')) return false;
+      if(f.gluten_free && t.includes('gluten')) return false;
       return true;
     }
-    function pickBaseKey(f){
-      if (f.vegan) return 'vegan';
-      if (f.vegetarian) return 'vegetarian';
-      if (f.keto) return 'low-carb';
-      if (f.high_protein) return 'high-protein';
-      return 'high-protein';
+
+    // Score items by priorities; higher = better
+    function scoreItem(item, f){
+      let s = 0;
+
+      // Budget: prefer cheaper
+      if(f.budget) s += Math.max(0, 12 - (item.price||0)); // cheaper -> higher
+
+      // Low-calorie: prefer 'low-cal' tag; lightly penalize high-carb unless it's fruit/whole-grain
+      if(f.low_cal){
+        if((item.tags||[]).includes('low-cal')) s += 6;
+        if((item.tags||[]).includes('high-carb')) s -= 2;
+      }
+
+      // Health-focused: boost veg/fruit/protein/heart-healthy; small penalty to purely snacky sweets
+      if(f.health){
+        if((item.tags||[]).includes('veg') || (item.tags||[]).includes('fruit')) s += 5;
+        if((item.tags||[]).includes('protein')) s += 3;
+        if((item.tags||[]).includes('heart-healthy')) s += 2;
+        if(item.name.toLowerCase().includes('chocolate')) s -= 2;
+      }
+
+      // High-protein preference
+      if(f.high_protein && (item.tags||[]).includes('protein')) s += 3;
+
+      // Small baseline to avoid negative-only scores
+      s += 1;
+
+      return s;
     }
 
-    function uniqByName(arr){
-      const seen=new Set(); const out=[];
-      for(const it of arr){ if(!seen.has(it.name)){ seen.add(it.name); out.push(it); } }
+    function pickPerCategory(f){
+      // How many per category if selected
+      const target = {
+        proteins: 3,
+        dairy: 1,
+        grains: 1,
+        fruits: 2,
+        vegetables: 2,
+        snacks: 2
+      };
+      // Which categories the user chose
+      const chosen = {
+        proteins: document.getElementById('proteins').checked,
+        dairy: document.getElementById('dairy').checked,
+        grains: document.getElementById('grains').checked,
+        fruits: document.getElementById('fruits').checked,
+        vegetables: document.getElementById('vegetables').checked,
+        snacks: document.getElementById('snacks').checked
+      };
+
+      // If user didn’t pick any category, default to a balanced basket
+      if(!Object.values(chosen).some(Boolean)){
+        chosen.proteins = chosen.grains = chosen.vegetables = true;
+      }
+
+      const tagMap = {proteins:'protein', dairy:'dairy', grains:'grain', fruits:'fruit', vegetables:'veg', snacks:'snack'};
+      let out = [];
+
+      for(const [cat, want] of Object.entries(chosen)){
+        if(!want) continue;
+        const tag = tagMap[cat];
+        // Candidate pool filtered by diet
+        const pool = CATALOG.filter(x => (x.tags||[]).includes(tag) && allowedByDiet(x,f));
+        // Sort by score desc
+        pool.sort((a,b)=>scoreItem(b,f)-scoreItem(a,f));
+        // Take top N
+        out.push(...pool.slice(0, target[cat]));
+      }
+
+      // De-dupe by name
+      const seen=new Set(); out = out.filter(i=>!seen.has(i.name) && seen.add(i.name));
       return out;
     }
 
-    function addCategoryPicks(arr, f, category, max=2){
-      // Choose items in CATALOG with matching category tags and diet-allowed
-      const tagMap = {
-        proteins: 'protein',
-        dairy: 'dairy',
-        grains: 'grain',
-        fruits: 'fruit',
-        vegetables: 'veg',
-        snacks: 'snack'
-      };
-      const tag = tagMap[category];
-      if(!tag) return;
-
-      const picks = CATALOG.filter(x => (x.tags||[]).includes(tag) && allowedByFlags(x, f));
-      // small deterministic selection: first `max` not already present
-      for (const p of picks){
-        if (arr.length >= 40) break; // safety
-        if (!arr.find(x=>x.name===p.name)){
-          arr.push(p);
-          if (--max<=0) break;
-        }
-      }
-    }
-
-    function applyHighProteinBoost(arr, f){
-      if (!f.high_protein) return arr;
-      const proteins = arr.filter(x => (x.tags||[]).includes('protein'));
-      if (proteins.length >= 3) return arr; // already protein-y
-
-      const pool = CATALOG.filter(x => (x.tags||[]).includes('protein') && allowedByFlags(x,f));
-      for (const p of pool){
-        if (!arr.find(x=>x.name===p.name)) arr.push(p);
-        if (arr.filter(x => (x.tags||[]).includes('protein')).length >= 3) break;
-      }
-      return arr;
-    }
-
-    // ------------ Generate & Render ------------
+    // ------------- Generate & render -------------
     function generateList(){
-      // Whatever screen is active → hide it; show loading
-      const active=document.querySelector('.screen.active');
-      if(active) active.classList.remove('active');
+      // show loading then results
+      document.getElementById('screen'+currentScreen).classList.remove('active');
       document.getElementById('loadingScreen').classList.add('active');
       setTimeout(showResults, 900);
     }
@@ -490,45 +433,30 @@
       document.getElementById('loadingScreen').classList.remove('active');
       document.getElementById('resultsScreen').classList.add('active');
 
-      const f = getFlags();
+      const f = flags();
+      // Build items strictly from chosen categories + priorities, filtered by diet
+      let items = pickPerCategory(f);
 
-      // base plan (diet-aware)
-      const baseKey = pickBaseKey(f);
-      lastPlanKey = baseKey;
-      let items = (BASE_PLANS[baseKey] || []).map(n => catByName(n)).filter(Boolean);
-
-      // Filter base items by diet flags (keto/gluten etc.)
-      items = items.filter(it => allowedByFlags(it, f));
-
-      // categories
-      const cats = {
-        proteins: document.getElementById('proteins').checked,
-        dairy: document.getElementById('dairy').checked,
-        grains: document.getElementById('grains').checked,
-        fruits: document.getElementById('fruits').checked,
-        vegetables: document.getElementById('vegetables').checked,
-        snacks: document.getElementById('snacks').checked
-      };
-      for (const [k,v] of Object.entries(cats)){
-        if (v) addCategoryPicks(items, f, k, k==='snacks'?2:1);
+      // If still empty (edge case), fall back to a safe set
+      if(items.length === 0){
+        items = CATALOG.filter(x => allowedByDiet(x,f) && ((x.tags||[]).includes('veg') || (x.tags||[]).includes('protein'))).slice(0,5);
       }
 
-      // ensure high-protein if requested
-      items = applyHighProteinBoost(items, f);
+      // Compute total
+      let total = items.reduce((acc,i)=>acc+(i.price||0),0);
 
-      // final filter & dedupe
-      items = uniqByName(items).filter(it => allowedByFlags(it, f));
+      // Title reflects strongest diet flag
+      const title =
+        f.vegan ? 'Vegan Plan' :
+        f.vegetarian ? 'Vegetarian Plan' :
+        f.keto ? 'Low-Carb Plan' :
+        f.high_protein ? 'High-Protein Plan' : 'Your Plan';
 
-      // compute totals
-      let total=0; for(const i of items){ total += (i.price||0); }
-      const titleMap = { 'high-protein':'High-Protein Plan','low-carb':'Low-Carb Plan','vegetarian':'Vegetarian Plan','vegan':'Vegan Plan' };
-      const planTitle = titleMap[baseKey] || 'Your Plan';
-
-      // render list with spacing
+      // Render with spacing (each item is its own block)
       const listHTML = `
         <div class="list-item">
           <div class="item-header">
-            <span class="item-title">${planTitle}</span>
+            <span class="item-title">${title}</span>
             <span class="quantity-badge">Items: ${items.length}</span>
           </div>
           ${items.map(i => `
@@ -544,44 +472,36 @@
         </div>`;
       document.getElementById('shoppingList').innerHTML = listHTML;
 
-      // priorities & summary
       const priorities=[];
-      if(document.getElementById('budget').checked) priorities.push('Budget');
-      if(document.getElementById('health').checked) priorities.push('Health');
-      if(document.getElementById('calories').checked) priorities.push('Low-Calorie');
+      if(f.budget) priorities.push('Budget-friendly');
+      if(f.health) priorities.push('Health-focused');
+      if(f.low_cal) priorities.push('Low-calorie');
 
       const householdSize=document.getElementById('householdSize').value;
       const duration=document.getElementById('duration').value;
-      const zipcode=document.getElementById('zipcode').value;
 
       document.getElementById('summary').innerHTML =
         '<h3 style="margin-bottom:20px;text-align:center;">Shopping Summary</h3>'+
-        `<div class="summary-row"><span>Diet Plan:</span><span>${planTitle}</span></div>`+
+        `<div class="summary-row"><span>Diet Plan:</span><span>${title}</span></div>`+
         `<div class="summary-row"><span>Priorities:</span><span>${priorities.length?priorities.join(', '):'None selected'}</span></div>`+
         `<div class="summary-row"><span>Total Items:</span><span>${items.length}</span></div>`+
         `<div class="summary-row"><span>Household:</span><span>${householdSize} people</span></div>`+
         `<div class="summary-row"><span>Duration:</span><span>${duration} week(s)</span></div>`+
-        (zipcode ? `<div class="summary-row"><span>Nearest area:</span><span>${zipcode}</span></div>` : '')+
         `<div class="summary-row"><span>Estimated Total:</span><span>$${total.toFixed(2)}</span></div>`;
 
-      // plain text for copy/email/save
-      generatedText = `${planTitle}\n` +
+      // Plain text for copy/email/save
+      generatedText = `${title}\n` +
         items.map(i=>`- ${i.name}${i.note?` (${i.note})`:''} – $${(i.price||0).toFixed(2)}`).join('\n') +
         `\nEstimated total: $${total.toFixed(2)}` +
         `\n\nHousehold: ${householdSize} people\nDuration: ${duration} week(s)` +
-        `\nPriorities: ${priorities.length?priorities.join(', '):'None selected'}` +
-        (zipcode?`\nArea: ${zipcode}`:'');
+        `\nPriorities: ${priorities.length?priorities.join(', '):'None selected'}`;
     }
 
-    // ------------ Utilities ------------
+    // ------------- Utilities -------------
     function startOver(){
-      currentScreen=1;selectedStore=null;generatedText='';lastPlanKey='';
+      currentScreen=1; generatedText='';
       document.querySelectorAll('input[type="checkbox"]').forEach(c=>{c.checked=false; const p=c.closest('.checkbox-item'); if(p) p.classList.remove('selected');});
-      document.querySelectorAll('input[type="radio"]').forEach(r=>{r.checked=false; const p=r.closest('.radio-item'); if(p) p.classList.remove('selected');});
-      document.getElementById('householdSize').value='2';
-      document.getElementById('duration').value='1';
-      document.getElementById('budget').value='';
-      document.getElementById('zipcode').value='';
+      ['householdSize','duration'].forEach(id=>{}); // keep defaults
       document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
       document.getElementById('screen1').classList.add('active');
       updateSteps(1);
@@ -590,29 +510,23 @@
     function copyList(){
       if(!generatedText) return;
       try{
-        if(navigator.clipboard?.writeText){ navigator.clipboard.writeText(generatedText); }
-        else{
-          const ta=document.createElement('textarea'); ta.value=generatedText; document.body.appendChild(ta);
-          ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
-        }
+        if(navigator.clipboard?.writeText) navigator.clipboard.writeText(generatedText);
+        else { const ta=document.createElement('textarea'); ta.value=generatedText; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); }
         alert('List copied to clipboard!');
       }catch(e){ alert('Copy failed. You can still use Print or Save.'); }
     }
-
     function emailList(){
       if(!generatedText) return;
       const subject=encodeURIComponent('Your Happy Grocer List');
       const body=encodeURIComponent(generatedText+'\n\nGenerated at https://happygrocerco.github.io/happy-grocer/');
       window.location.href=`mailto:?subject=${subject}&body=${body}`;
     }
-
     function printList(){
       const html=document.getElementById('resultsScreen').innerHTML;
       const orig=document.body.innerHTML;
       document.body.innerHTML='<style>body{font-family:Arial,sans-serif;padding:20px;color:#333}.btn{display:none}.card{box-shadow:none;border:1px solid #ddd}</style>'+html;
       window.print(); document.body.innerHTML=orig; location.reload();
     }
-
     function saveList(){
       if(!generatedText) return;
       const blob=new Blob([generatedText],{type:'text/plain'});
@@ -621,6 +535,18 @@
       document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
       alert('Shopping list saved successfully!');
     }
+
+    // ------------- (Optional) Future AI hook -------------
+    // IMPORTANT: Do NOT call AI APIs directly from the browser with a secret key.
+    // Instead, create a tiny backend endpoint (e.g., on Vercel) at /api/generate,
+    // then uncomment and use the code below to POST the user's selections.
+    /*
+    async function generateWithAI(payload){
+      const res = await fetch('/api/generate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+      const data = await res.json(); // expect: { items: [{name,note,price,tags:[]}, ...] }
+      return data.items;
+    }
+    */
   </script>
 </body>
 </html>
