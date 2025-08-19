@@ -21,11 +21,28 @@
       align-items: center;
       justify-content: center;
     }
-    .main-logo{
-      width: 120px;
-      max-width: 40vw;
+    .logo-wrap {
+      position: relative;
+      width: 140px;
+      height: 140px;
+    }
+    .logo-wrap::before {
+      content: "";
+      position: absolute;
+      inset: 0;       
+      background: #16a34a;
+      border-radius: 28px;
+      filter: drop-shadow(0 10px 30px rgba(0,0,0,.20));
+      z-index: 0;
+    }
+    .main-logo {
+      position: relative;
+      z-index: 1;
+      width: 120px;         /* adjust size */
+      max-width: 40vw;      /* responsive cap */
       height: auto;
       display: block;
+      bject-fit: contain;  /* makes sure image isn’t stretched */
       filter: drop-shadow(0 10px 30px rgba(0,0,0,.2));
     }
     .app-title {
@@ -141,7 +158,9 @@
   <div class="container">
     <div class="header">
 <div class="logo">
-  <img src="logo.png" alt="Happy Grocer Logo" class="main-logo">
+  <div class="logo-wrap">
+    <img src="logo.png?v=10" alt="Happy Grocer Logo" class="main-logo">
+  </div>
 </div>
       </div>
       <h1 class="app-title">Happy Grocer</h1>
@@ -620,6 +639,7 @@
   </script>
 </body>
 </html>
+
 
 
 
