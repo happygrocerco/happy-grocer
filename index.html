@@ -21,6 +21,7 @@
       text-align:center;
       color:#15803d;
       margin-bottom:30px;
+      position: relative;
     }
     .logo{
       margin: 0 auto 20px;
@@ -52,6 +53,56 @@
       font-size:1.1rem;opacity:.9;font-weight:500;color:#16a34a;
       margin-bottom:0; 
     }
+    
+    /* Feedback Button Styles */
+    .feedback-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(255,255,255,0.9);
+      border: 2px solid #16a34a;
+      color: #16a34a;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 15px rgba(34,197,94,.2);
+    }
+    .feedback-btn:hover {
+      background: #16a34a;
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(34,197,94,.3);
+    }
+    
+    .feedback-main {
+      background: linear-gradient(135deg, #fbbf24, #f59e0b);
+      color: white;
+      border: none;
+      margin-top: 16px;
+      font-weight: 700;
+      box-shadow: 0 8px 22px rgba(251,191,36,.35);
+      text-decoration: none;
+      display: inline-block;
+      text-align: center;
+      transition: all 0.3s ease;
+      width: 100%;
+      padding: 16px;
+      border-radius: 18px;
+      font-size: 1.05rem;
+      text-transform: uppercase;
+      letter-spacing: .6px;
+    }
+    .feedback-main:hover {
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(251,191,36,.45);
+      color: white;
+    }
+
     .card{
       background:rgba(255,255,255,.95);
       backdrop-filter:blur(20px);
@@ -149,6 +200,9 @@
 <body>
   <div class="container">
     <div class="header">
+      <!-- ✨ NEW: Feedback button in header -->
+      <a href="#" onclick="openFeedback()" class="feedback-btn">💬 Feedback</a>
+      
       <div class="logo">
         <div class="logo-wrap">
           <img src="logo.png?v=10" alt="Happy Grocer Logo" class="main-logo">
@@ -311,13 +365,30 @@
           <button class="btn" onclick="printList()" style="flex:1;background:#16a34a;">Print List</button>
           <button class="btn" onclick="saveList()" style="flex:1;background:#16a34a;">Save List</button>
         </div>
+        
+        <!-- ✨ NEW: Prominent feedback button after user gets their list -->
+        <a href="#" onclick="openFeedback()" class="feedback-main">
+          📝 Help Us Improve - Share Your Feedback!
+        </a>
+        
         <button class="btn" onclick="startOver()" style="margin-top:16px;">Create Another List</button>
       </div>
     </div>
   </div>
 
   <script>
-    // === PLACEHOLDERS for future integration ===
+    // === ✨ NEW: FEEDBACK INTEGRATION ===
+    const FEEDBACK_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSdDCg3b0RIk--JViF203FXFHq4x-RrDYtnwSd1X6mTz94wbmQ/viewform?usp=header";
+    
+    function openFeedback() {
+      // Open Google Form in new tab
+      window.open(FEEDBACK_FORM_URL, '_blank');
+      
+      // Optional: Track that user clicked feedback (for analytics later)
+      console.log('Feedback form opened');
+    }
+    
+    // === EXISTING CODE ===
     const KROGER_CLIENT_ID = "YOUR_KROGER_CLIENT_ID_HERE";
     const KROGER_CLIENT_SECRET = "YOUR_KROGER_CLIENT_SECRET_HERE";
     const KROGER_API_ENDPOINT = "https://api.kroger.com/v1/products";
@@ -612,6 +683,15 @@
       document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
       alert('Shopping list saved successfully!');
     }
+
+    // ------------- (Optional) Future AI hook -------------
+    /*
+    async function generateWithAI(payload){
+      const res = await fetch('/api/generate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+      const data = await res.json(); // expect: { items: [{name,note,price,tags:[]}, ...] }
+      return data.items;
+    }
+    */
   </script>
 </body>
 </html>
