@@ -20,10 +20,10 @@
     .header{
       text-align:center;
       color:#15803d;
-      margin-bottom:12px;
+      margin-bottom:30px;
     }
     .logo{
-      margin: 0 auto 20px;
+      margin: 0 auto 20px; /* This ensures centering */
       display: flex;
       align-items: center;
       justify-content: center;
@@ -43,15 +43,21 @@
       height: auto;
       display: block;
     }
-    .app-title {
-      font-size:2.8rem;font-weight:800;margin-bottom:4px;
-      letter-spacing:1px;color:#15803d;
-      text-shadow:2px 2px 4px rgba(0,0,0,.3)
-    }
-    .subtitle {
-      font-size:1.1rem;opacity:.9;font-weight:500;color:#16a34a;
-      margin-bottom:4px; 
-    }
+.app-title {
+  font-size:2.8rem;
+  font-weight:800;
+  margin-bottom:8px; /* Increased from 4px */
+  letter-spacing:1px;
+  color:#15803d;
+  text-shadow:2px 2px 4px rgba(0,0,0,.3);
+}
+.subtitle {
+  font-size:1.1rem;
+  opacity:.9;
+  font-weight:500;
+  color:#16a34a;
+  margin-bottom:0; /* Removed margin-bottom since header handles spacing */
+}
     .card{
       background:rgba(255,255,255,.95);
       backdrop-filter:blur(20px);
@@ -631,6 +637,7 @@
   </script>
 </body>
 </html>
+
 
 
 
