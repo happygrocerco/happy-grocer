@@ -23,7 +23,7 @@
       margin-bottom:30px;
     }
     .logo{
-      margin: 0 auto 20px; /* This ensures centering */
+      margin: 0 auto 20px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -43,21 +43,15 @@
       height: auto;
       display: block;
     }
-.app-title {
-  font-size:2.8rem;
-  font-weight:800;
-  margin-bottom:8px; /* Increased from 4px */
-  letter-spacing:1px;
-  color:#15803d;
-  text-shadow:2px 2px 4px rgba(0,0,0,.3);
-}
-.subtitle {
-  font-size:1.1rem;
-  opacity:.9;
-  font-weight:500;
-  color:#16a34a;
-  margin-bottom:0; /* Removed margin-bottom since header handles spacing */
-}
+    .app-title {
+      font-size:2.8rem;font-weight:800;margin-bottom:8px;
+      letter-spacing:1px;color:#15803d;
+      text-shadow:2px 2px 4px rgba(0,0,0,.3)
+    }
+    .subtitle {
+      font-size:1.1rem;opacity:.9;font-weight:500;color:#16a34a;
+      margin-bottom:0; 
+    }
     .card{
       background:rgba(255,255,255,.95);
       backdrop-filter:blur(20px);
@@ -155,11 +149,10 @@
 <body>
   <div class="container">
     <div class="header">
-<div class="logo">
-  <div class="logo-wrap">
-    <img src="logo.png?v=10" alt="Happy Grocer Logo" class="main-logo">
-  </div>
-</div>
+      <div class="logo">
+        <div class="logo-wrap">
+          <img src="logo.png?v=10" alt="Happy Grocer Logo" class="main-logo">
+        </div>
       </div>
       <h1 class="app-title">Happy Grocer</h1>
       <p class="subtitle">Shopping Smart for a Happier Cart</p>
@@ -291,12 +284,6 @@
         </div>
       </div>
     </div>
-
-    <!-- (Future) Screen 5: Store selection (fully hidden for MVP)
-    <div class="screen" id="screen5">
-      ... keep your store UI here if you want to re-enable later ...
-    </div>
-    -->
 
     <!-- Loading -->
     <div class="screen" id="loadingScreen">
@@ -625,31 +612,6 @@
       document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
       alert('Shopping list saved successfully!');
     }
-
-    // ------------- (Optional) Future AI hook -------------
-    /*
-    async function generateWithAI(payload){
-      const res = await fetch('/api/generate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
-      const data = await res.json(); // expect: { items: [{name,note,price,tags:[]}, ...] }
-      return data.items;
-    }
-    */
   </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
